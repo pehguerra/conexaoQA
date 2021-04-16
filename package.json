@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "Rede social para QAs",
   "main": "server.js",
-  "engines": {
-    "node": "14.15.1",
-    "npm": "7.5.2"
-  },
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
