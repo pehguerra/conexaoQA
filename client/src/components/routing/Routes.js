@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 
 import Alert from '../layout/Alert'
@@ -37,10 +36,6 @@ const Routes = props => {
             </Switch>
         </section>
     )
-}
-
-Routes.propTypes = {
-
 }
 
 export default Routes
