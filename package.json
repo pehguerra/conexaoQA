@@ -2,14 +2,14 @@
   "name": "conexaoqa",
   "version": "1.0.0",
   "description": "Rede social para QAs",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "14.15.1",
     "npm": "7.5.2"
   },
   "scripts": {
-    "start": "node index",
-    "server": "nodemon index",
+    "start": "node server",
+    "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
