@@ -25,7 +25,6 @@ router.get('/me', auth, async (req, res) => {
 
         res.json(profile)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -91,7 +90,6 @@ router.post('/', [ auth, [
         await profile.save()
         res.json(profile)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -105,7 +103,6 @@ router.get('/', async (req, res) => {
 
         res.json(profiles)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -123,7 +120,6 @@ router.get('/user/:user_id', async (req, res) => {
 
         res.json(profile)
     } catch(err) {
-        console.error(err.message)
         if(err.kind == 'ObjectId') {
             return res.status(400).json({ errors: [{ msg: 'Perfil não encontrado' }] })
         }
@@ -147,7 +143,6 @@ router.delete('/', auth, async (req, res) => {
 
         res.json({ msg: 'Usuário removido' })
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -195,7 +190,6 @@ router.put('/experience', [ auth, [
 
         res.json(profile)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -221,7 +215,6 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 
         res.json(profile)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -272,7 +265,6 @@ router.put('/education', [ auth, [
 
         res.json(profile)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -298,7 +290,6 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 
         res.json(profile)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -328,7 +319,6 @@ router.get('/github/:username', (req, res) => {
             res.json(JSON.parse(body))
         })
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })

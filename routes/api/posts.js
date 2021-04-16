@@ -38,7 +38,6 @@ router.post('/', [ auth, [
 
         res.json(post)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -53,7 +52,6 @@ router.get('/', auth, async (req, res) => {
         const posts = await Post.find().sort({ date: -1 })
         res.json(posts)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -73,7 +71,6 @@ router.get('/:id', auth, async (req, res) => {
 
         res.json(post)
     } catch(err) {
-        console.error(err.message)
         if(err.kind == 'ObjectId') {
             return res.status(404).json({ errors: [{ msg: 'Post não encontrado' }] })
         }
@@ -103,7 +100,6 @@ router.delete('/:id', auth, async (req, res) => {
 
         res.json({ msg: 'Post removido' })
     } catch(err) {
-        console.error(err.message)
         if(err.kind == 'ObjectId') {
             return res.status(404).json({ errors: [{ msg: 'Post não encontrado' }] })
         }
@@ -133,7 +129,6 @@ router.put('/like/:id', auth, async (req, res) => {
 
         res.json(post.likes)
     } catch(err) {
-        console.error(err.message)
         if(err.kind == 'ObjectId') {
             return res.status(404).json({ errors: [{ msg: 'Post não encontrado' }] })
         }
@@ -166,7 +161,6 @@ router.put('/unlike/:id', auth, async (req, res) => {
 
         res.json(post.likes)
     } catch(err) {
-        console.error(err.message)
         if(err.kind == 'ObjectId') {
             return res.status(404).json({ errors: [{ msg: 'Post não encontrado' }] })
         }
@@ -208,7 +202,6 @@ router.post('/comment/:id', [ auth, [
 
         res.json(post.comments)
     } catch(err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
@@ -242,7 +235,6 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
  
          res.json(post.comments)
     } catch (err) {
-        console.error(err.message)
         res.status(500).send('Server error')
     }
 })
