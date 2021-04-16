@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Rede social para QAs",
   "main": "index.js",
+  "engines": {
+    "node": "14.15.1",
+    "npm": "7.5.2"
+  },
   "scripts": {
-    "start": "node server",
+    "start": "node index.js",
     "server": "nodemon index",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

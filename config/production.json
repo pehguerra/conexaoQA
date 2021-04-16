@@ -1,6 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://admin:brad123@conexaoqa.p2ohy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "jwtSecret": "pizzadeportuguesa",
-    "githubClientId": "a68f2c4707207cc19432",
-    "githubSecret": "7608b90b97360f9c1f3e23b8b585caccab20478f"
-}
