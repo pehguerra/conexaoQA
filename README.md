@@ -20,7 +20,7 @@ Aplicação para criar perfis de QA, compartilhar e postar dúvidas, dicas, vaga
 ___
 ## Tech
 
-![](https://ibb.co/60Dqs4q)
+![](https://i.ibb.co/DfwjK7j/mern.png)
 **MERN** - MongoDB, Express, React JS, Node.js
 
 ## Instalação
