@@ -14,8 +14,8 @@ import Routes from './components/routing/Routes'
 
 const App = () =>{
     useEffect(() => {
-        if(localStorage.token) {
-            setAuthToken(localStorage.token);
+        if(sessionStorage.token) {
+            setAuthToken(sessionStorage.token);
             store.dispatch(loadUser())
         }
     }, [])

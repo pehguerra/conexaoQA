@@ -1,7 +1,7 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, DELETE_ACCOUNT } from '../actions/types'
 
 const initialState = {
-    token: localStorage.getItem('token') || null,
+    token: sessionStorage.getItem('token') || null,
     isAuthenticated: false,
     loading: false,
     user: null
@@ -20,7 +20,7 @@ export default function authentication(state = initialState, action) {
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
-            localStorage.setItem('token', payload.token)
+            sessionStorage.setItem('token', payload.token)
             return {
                 ...state,
                 ...payload,
@@ -32,7 +32,7 @@ export default function authentication(state = initialState, action) {
         case LOGIN_FAIL:
         case LOGOUT:
         case DELETE_ACCOUNT:
-            localStorage.removeItem('token')
+            sessionStorage.removeItem('token')
             return {
                 ...state,
                 token: null,
