@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const setAuthToken = token => {
-    if(token) {
-        axios.defaults.headers.common['x-auth-token'] = token
+const setAuthToken = jwt => {
+    if(jwt) {
+        axios.defaults.headers.common['x-auth-token'] = jwt
     } else {
         delete axios.defaults.headers.common['x-auth-token']
     }

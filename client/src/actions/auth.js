@@ -5,8 +5,8 @@ import setAuthToken from '../utils/setAuthToken'
 
 // load user data into redux store inside auth
 export const loadUser = () => async dispatch => {
-    if(sessionStorage.token) {
-        setAuthToken(sessionStorage.token)
+    if(sessionStorage.jwt) {
+        setAuthToken(sessionStorage.jwt)
     }
 
     try {

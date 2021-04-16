@@ -14,8 +14,8 @@ import Routes from './components/routing/Routes'
 
 const App = () =>{
     useEffect(() => {
-        if(sessionStorage.token) {
-            setAuthToken(sessionStorage.token);
+        if(sessionStorage.jwt) {
+            setAuthToken(sessionStorage.jwt);
             store.dispatch(loadUser())
         }
     }, [])

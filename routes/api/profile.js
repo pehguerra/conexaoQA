@@ -306,7 +306,7 @@ router.get('/github/:username', (req, res) => {
         }
 
         request(options, (error, response, body) => {
-            if(error) console.error(error)
+            if(error)  res.status(500).send('Server error')
 
             if(response.statusCode === 403) {
                 return res.status(403).json({ errors: [{ msg: 'Limite de taxa de uso da API do GitHub excedido. Favor aguardar alguns minutos' }] })

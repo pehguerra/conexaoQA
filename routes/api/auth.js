@@ -20,7 +20,7 @@ router.get('/', auth, async (req, res) => {
     }
 })
 
-// @route   POST api/users
+// @route   POST api/auth
 // @desc    Authenticate user & get token
 // @access  Public
 router.post('/', [
@@ -63,10 +63,10 @@ router.post('/', [
         jwt.sign(
             payload, 
             keys.jwtSecret,
-            { expiresIn: 36000 },
+            { expiresIn: 3600 },
             (err, token) => {
                 if(err) throw err
-                res.json({ token })
+                res.json({ jwt: token })
             })
     } catch(err) {
         res.status(500).send('Server error')

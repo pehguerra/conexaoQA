@@ -1,7 +1,7 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, DELETE_ACCOUNT } from '../actions/types'
 
 const initialState = {
-    token: sessionStorage.getItem('token') || null,
+    jwt: sessionStorage.getItem('jwt') || null,
     isAuthenticated: false,
     loading: false,
     user: null
@@ -20,7 +20,7 @@ export default function authentication(state = initialState, action) {
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
-            sessionStorage.setItem('token', payload.token)
+            sessionStorage.setItem('jwt', payload.jwt)
             return {
                 ...state,
                 ...payload,
@@ -32,10 +32,10 @@ export default function authentication(state = initialState, action) {
         case LOGIN_FAIL:
         case LOGOUT:
         case DELETE_ACCOUNT:
-            sessionStorage.removeItem('token')
+            sessionStorage.removeItem('jwt')
             return {
                 ...state,
-                token: null,
+                jwt: null,
                 isAuthenticated: false,
                 loading: false
             }
