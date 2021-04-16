@@ -20,6 +20,7 @@ Aplicação para criar perfis de QA, compartilhar e postar dúvidas, dicas, vaga
 ___
 ## Tech
 
+![](https://ibb.co/60Dqs4q)
 **MERN** - MongoDB, Express, React JS, Node.js
 
 ## Instalação
@@ -50,7 +51,7 @@ npm install
 
 Dentro do código, criar as variáveis de ambiente:
 - Dentro da pasta config criar o arquivo dev.js
-- dev.js
+- dev.js:
 
 ```javascript
 module.exports = {
@@ -66,7 +67,8 @@ module.exports = {
 - **githubClientId:** Gerar um OAuth App dentro do [GitHub](http://github.com/), selecionando Settings -> Developer Settings -> OAuth Apps. HomepageURL e Authorization callback URL que são pedidos na hora da criação das chaves pode ser `http://localhost:3000`
 - **githubSecret:** Gerada junto com o githubClientId
 
-Por fim, iniciar a aplicação;
+Por fim, iniciar a aplicação:
 ```sh
 npm run dev
 ```
+
