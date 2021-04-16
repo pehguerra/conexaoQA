@@ -13,7 +13,7 @@ const User = require('../../models/User')
 // @access  Private
 router.get('/', auth, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-senha')
+        const user = await User.findById(req.user.id).select('-password')
         res.json(user)
     } catch(err) {
         console.error(err.message)
@@ -27,7 +27,7 @@ router.get('/', auth, async (req, res) => {
 router.post('/', [
     check('email', 'Por favor inclua um email válido')
         .isEmail(),
-    check('senha', 'Senha é obrigatória')
+    check('password', 'Senha é obrigatória')
         .exists()
 ], async (req, res) => {
     
@@ -37,7 +37,7 @@ router.post('/', [
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { email, senha } = req.body
+    const { email, password } = req.body
 
     try {
         // see if user exists
@@ -48,7 +48,7 @@ router.post('/', [
         }
 
         // compare passwords
-        const isMatch = await bcrypt.compare(senha, user.senha)
+        const isMatch = await bcrypt.compare(password, user.password)
 
         if(!isMatch) {
             return res.status(400).json({ errors: [{ msg: 'Credenciais inválidas' }] })

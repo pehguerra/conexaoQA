@@ -11,7 +11,7 @@ const User = require('../../models/User')
 // @desc    Create a post
 // @access  Private
 router.post('/', [ auth, [
-    check('texto', 'Texto é obrigatório')
+    check('text', 'Texto é obrigatório')
         .not()
         .isEmpty()
 ] ], async (req, res) => {
@@ -28,10 +28,10 @@ router.post('/', [ auth, [
         const user = await User.findById(req.user.id).select('-password')
     
         const newPost = new Post({
-            texto: req.body.texto,
-            nome: user.nome,
+            text: req.body.text,
+            name: user.name,
             avatar: user.avatar,
-            usuario: req.user.id
+            user: req.user.id
         })
 
         const post = await newPost.save()
@@ -95,7 +95,7 @@ router.delete('/:id', auth, async (req, res) => {
         }
 
         // checks user
-        if(post.usuario.toString() !== req.user.id) {
+        if(post.user.toString() !== req.user.id) {
             return res.status(403).json({ errors: [{ msg: 'Usuário não autorizado' }] })
         }
 
@@ -123,11 +123,11 @@ router.put('/like/:id', auth, async (req, res) => {
         }
 
         // checks if the post has already been liked
-        if(post.likes.filter(like => like.usuario.toString() === req.user.id).length > 0) {
-            return res.status(400).json({ errors: [{ msg: 'Post já curtido' }] })
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
+            return res.status(400).json({ errors: [{ msg: 'Você já curtiu este post' }] })
         }
 
-        post.likes.unshift({ usuario: req.user.id })
+        post.likes.unshift({ user: req.user.id })
 
         await post.save()
 
@@ -153,12 +153,12 @@ router.put('/unlike/:id', auth, async (req, res) => {
         }
 
         // checks if the post has already been liked
-        if(post.likes.filter(like => like.usuario.toString() === req.user.id).length === 0) {
-            return res.status(400).json({ errors: [{ msg: 'Post não foi curtido' }] })
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
+            return res.status(400).json({ errors: [{ msg: 'Você não curtiu este post' }] })
         }
 
         // gets remove index
-        const removeIndex = post.likes.map(like => like.usuario.toString()).indexOf(req.user.id)
+        const removeIndex = post.likes.map(like => like.user.toString()).indexOf(req.user.id)
 
         post.likes.splice(removeIndex, 1)
 
@@ -178,7 +178,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
 // @desc    Comment on a post
 // @access  Private
 router.post('/comment/:id', [ auth, [
-    check('texto', 'Texto é obrigatório')
+    check('text', 'Texto é obrigatório')
         .not()
         .isEmpty()
 ] ], async (req, res) => {
@@ -196,17 +196,17 @@ router.post('/comment/:id', [ auth, [
         const post = await Post.findById(req.params.id)
     
         const newCommand = {
-            texto: req.body.texto,
-            nome: user.nome,
+            text: req.body.text,
+            name: user.name,
             avatar: user.avatar,
-            usuario: req.user.id
+            user: req.user.id
         }
 
-        post.comentarios.unshift(newCommand)
+        post.comments.unshift(newCommand)
 
         await post.save()
 
-        res.json(post.comentarios)
+        res.json(post.comments)
     } catch(err) {
         console.error(err.message)
         res.status(500).send('Server error')
@@ -221,7 +221,7 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
         const post = await Post.findById(req.params.id)
     
         // pull out comment
-        const comment = post.comentarios.find(comment => comment.id === req.params.comment_id)
+        const comment = post.comments.find(comment => comment.id === req.params.comment_id)
 
         // checks comment exists
         if(!comment) {
@@ -229,18 +229,18 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
         }
 
         // checks user
-        if(comment.usuario.toString() !== req.user.id) {
+        if(comment.user.toString() !== req.user.id) {
             return res.status(403).json({ errors: [{ msg: 'Usuário não autorizado' }] })
         }
 
          // gets remove index
-         const removeIndex = post.comentarios.map(comment => comment.usuario.toString()).indexOf(req.user.id)
+         const removeIndex = post.comments.map(comment => comment.user.toString()).indexOf(req.user.id)
 
-         post.comentarios.splice(removeIndex, 1)
+         post.comments.splice(removeIndex, 1)
  
          await post.save()
  
-         res.json(post.comentarios)
+         res.json(post.comments)
     } catch (err) {
         console.error(err.message)
         res.status(500).send('Server error')

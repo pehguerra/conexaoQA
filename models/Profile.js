@@ -1,17 +1,17 @@
 const mongoose = require('mongoose')
 
 const ProfileSchema = new mongoose.Schema({
-    usuario: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    empresa: {
+    company: {
         type: String
     },
     website: {
         type: String
     },
-    localizacao: {
+    location: {
         type: String
     },
     status: {
@@ -28,66 +28,66 @@ const ProfileSchema = new mongoose.Schema({
     githubusername: {
         type: String
     },
-    experiencias: [
+    experience: [
         {
-            posicao: {
+            title: {
                 type: String,
                 required: true
             },
-            empresa: {
+            company: {
                 type: String,
                 required: true
             },
-            localizacao: {
+            location: {
                 type: String
             },
-            inicio: {
+            from: {
                 type: Date,
                 required: true
             },
-            fim: {
+            to: {
                 type: Date
             },
-            atual: {
+            current: {
                 type: Boolean,
                 default: false
             },
-            descricao: {
+            description: {
                 type: String
             }
         }
     ],
-    formacaoAcademica: [
+    education: [
         {
-            escola: {
+            school: {
                 type: String,
                 required: true
             },
-            grau: {
+            degree: {
                 type: String,
                 required: true
             },
-            areaestudo: {
+            fieldofstudy: {
                 type: String,
                 required: true
             },
-            inicio: {
+            from: {
                 type: Date,
                 required: true
             },
-            fim: {
+            to: {
                 type: Date
             },
-            atual: {
+            current: {
                 type: Boolean,
                 default: false
             },
-            descricao: {
+            description: {
                 type: String
             }
         }
     ],
-    sociais: {
+    social: {
         youtube: {
             type: String
         },
@@ -104,7 +104,7 @@ const ProfileSchema = new mongoose.Schema({
             type: String
         }
     },
-    data: {
+    date: {
         type: Date,
         default: Date.now
     }

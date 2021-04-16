@@ -12,12 +12,12 @@ const User = require('../../models/User')
 // @desc    Register user
 // @access  Public
 router.post('/', [
-    check('nome', 'Nome é obrigatório')
+    check('name', 'Name é obrigatório')
         .not()
         .isEmpty(),
     check('email', 'Por favor inclua um email válido')
         .isEmail(),
-    check('senha', 'Por favor entre com uma senha de 6 caracteres ou mais')
+    check('password', 'Por favor entre com uma senha de 6 caracteres ou mais')
         .isLength({ min: 6 })
 ], async (req, res) => {
     
@@ -27,7 +27,7 @@ router.post('/', [
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { nome, email, senha } = req.body
+    const { name, email, password } = req.body
 
     try {
         // see if user exists
@@ -46,16 +46,16 @@ router.post('/', [
 
         // create user
         user = new User({
-            nome,
+            name,
             email,
             avatar,
-            senha
+            password
         })
     
         // encrypt the password
         const salt = await bcrypt.genSalt(10)
 
-        user.senha = await bcrypt.hash(senha, salt)
+        user.password = await bcrypt.hash(password, salt)
 
         // saves user
         await user.save()

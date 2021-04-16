@@ -7,6 +7,7 @@ const config = require('config')
 
 const Profile = require('../../models/Profile')
 const User = require('../../models/User')
+const Post = require('../../models/Post')
 const { restart } = require('nodemon')
 
 // @route   GET api/profile/me
@@ -16,12 +17,13 @@ router.get('/me', auth, async (req, res) => {
     try {
 
         // checks if user has profile
-        const profile = await Profile.findOne({ usuario: req.user.id }).populate('usuario', ['nome', 'avatar'])
+        const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar'])
         
         if(!profile) {
             return res.status(400).json({ errors: [{ msg: 'Não há profile para este usuário' }] })
         }
 
+        res.json(profile)
     } catch(err) {
         console.error(err.message)
         res.status(500).send('Server error')
@@ -46,14 +48,14 @@ router.post('/', [ auth, [
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { empresa, website, localizacao, bio, status, githubusername, skills, youtube, facebook, twitter, instagram, linkedin } = req.body
+    const { company, website, location, bio, status, githubusername, skills, youtube, facebook, twitter, instagram, linkedin } = req.body
 
     // builds profile object
     const profileFields = {}
-    profileFields.usuario = req.user.id
-    if (empresa) profileFields.empresa = empresa
+    profileFields.user = req.user.id
+    if (company) profileFields.company = company
     if (website) profileFields.website = website
-    if (localizacao) profileFields.localizacao = localizacao
+    if (location) profileFields.location = location
     if (bio) profileFields.bio = bio
     if (status) profileFields.status = status
     if (githubusername) profileFields.githubusername = githubusername
@@ -62,20 +64,20 @@ router.post('/', [ auth, [
     }
 
     // builds social object
-    profileFields.sociais = {}
-    if (youtube) profileFields.sociais.youtube = youtube
-    if (twitter) profileFields.sociais.twitter = twitter
-    if (facebook) profileFields.sociais.facebook = facebook
-    if (linkedin) profileFields.sociais.linkedin = linkedin
-    if (instagram) profileFields.sociais.instagram = instagram
+    profileFields.social = {}
+    youtube ? profileFields.social.youtube = youtube : profileFields.social.youtube = ''
+    twitter ? profileFields.social.twitter = twitter : profileFields.social.twitter = ''
+    facebook ? profileFields.social.facebook = facebook : profileFields.social.facebook = ''
+    linkedin ? profileFields.social.linkedin = linkedin : profileFields.social.linkedin = ''
+    instagram ? profileFields.social.instagram = instagram : profileFields.social.instagram = ''
 
     try {
-        let profile = await Profile.findOne({ usuario: req.user.id })
+        let profile = await Profile.findOne({ user: req.user.id })
 
         if(profile) {
             //update
             profile = await Profile.findOneAndUpdate(
-                { usuario: req.user.id }, 
+                { user: req.user.id }, 
                 { $set: profileFields },
                 { new: true }
             )
@@ -99,7 +101,7 @@ router.post('/', [ auth, [
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const profiles = await Profile.find().populate('usuario', ['nome', 'avatar'])
+        const profiles = await Profile.find().populate('user', ['name', 'avatar'])
 
         res.json(profiles)
     } catch(err) {
@@ -113,7 +115,7 @@ router.get('/', async (req, res) => {
 // @access  Public
 router.get('/user/:user_id', async (req, res) => {
     try {
-        const profile = await Profile.findOne({ usuario: req.params.user_id }).populate('usuario', ['nome', 'avatar'])
+        const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar'])
 
         if(!profile) {
             return res.status(400).json({ errors: [{ msg: 'Perfil não encontrado' }] })
@@ -134,10 +136,11 @@ router.get('/user/:user_id', async (req, res) => {
 // @access  Private
 router.delete('/', auth, async (req, res) => {
     try {
-        // @todo - remove users posts
+        // removes user posts
+        await Post.deleteMany({ user: req.user_id })
 
         // removes profile
-        await Profile.findOneAndRemove({ usuario: req.user.id })
+        await Profile.findOneAndRemove({ user: req.user.id })
 
         // removes user
         await User.findOneAndRemove({ _id: req.user.id })
@@ -153,13 +156,13 @@ router.delete('/', auth, async (req, res) => {
 // @desc    Add profile experience
 // @access  Private
 router.put('/experience', [ auth, [
-    check('posicao', 'Posição é obrigatório')
+    check('title', 'Posição é obrigatório')
         .not()
         .isEmpty(),
-    check('empresa', 'Empresa é obrigatório')
+    check('company', 'Empresa é obrigatório')
         .not()
         .isEmpty(),
-    check('inicio', 'Início é obrigatório')
+    check('from', 'Início é obrigatório')
         .not()
         .isEmpty()
 ] ], async (req, res) => {
@@ -170,23 +173,23 @@ router.put('/experience', [ auth, [
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { posicao, empresa, localizacao, inicio, fim, atual, descricao } = req.body
+    const { title, company, location, from, to, current, description } = req.body
 
     // creates new experience
     const newExp = {
-        posicao,
-        empresa,
-        localizacao,
-        inicio,
-        fim,
-        atual,
-        descricao
+        title,
+        company,
+        location,
+        from,
+        to,
+        current,
+        description
     }
 
     try {
-        const profile = await Profile.findOne({ usuario: req.user.id })
+        const profile = await Profile.findOne({ user: req.user.id })
         
-        profile.experiencias.unshift(newExp)
+        profile.experience.unshift(newExp)
 
         await profile.save()
 
@@ -202,17 +205,17 @@ router.put('/experience', [ auth, [
 // @access  Private
 router.delete('/experience/:exp_id', auth, async (req, res) => {
     try {
-        const profile = await Profile.findOne({ usuario: req.user.id })
+        const profile = await Profile.findOne({ user: req.user.id })
 
         // gets remove index
-        const removeIndex = profile.experiencias.map(item => item.id).indexOf(req.params.exp_id)
+        const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id)
 
         if(removeIndex == -1) {
             return res.status(404).json({ errors: [{ msg: 'Experiência não encontrada' }] })
         }
 
         // removes _ before id
-        profile.experiencias.splice(removeIndex, 1)
+        profile.experience.splice(removeIndex, 1)
 
         await profile.save()
 
@@ -227,16 +230,16 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 // @desc    Add profile education
 // @access  Private
 router.put('/education', [ auth, [
-    check('escola', 'Escola é obrigatório')
+    check('school', 'Escola é obrigatório')
         .not()
         .isEmpty(),
-    check('grau', 'Grau é obrigatório')
+    check('degree', 'Grau é obrigatório')
         .not()
         .isEmpty(),
-    check('areaestudo', 'Área de estudo é obrigatório')
+    check('fieldofstudy', 'Área de estudo é obrigatório')
         .not()
         .isEmpty(),
-    check('inicio', 'Início é obrigatório')
+    check('from', 'Início é obrigatório')
         .not()
         .isEmpty()
 ] ], async (req, res) => {
@@ -247,23 +250,23 @@ router.put('/education', [ auth, [
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { escola, grau, areaestudo, inicio, fim, atual, descricao } = req.body
+    const { school, degree, fieldofstudy, from, to, current, description } = req.body
 
     // creates new experience
     const newEdu = {
-        escola,
-        grau,
-        areaestudo,
-        inicio,
-        fim,
-        atual,
-        descricao
+        school,
+        degree,
+        fieldofstudy,
+        from,
+        to,
+        current,
+        description
     }
 
     try {
-        const profile = await Profile.findOne({ usuario: req.user.id })
+        const profile = await Profile.findOne({ user: req.user.id })
         
-        profile.formacaoAcademica.unshift(newEdu)
+        profile.education.unshift(newEdu)
 
         await profile.save()
 
@@ -279,17 +282,17 @@ router.put('/education', [ auth, [
 // @access  Private
 router.delete('/education/:edu_id', auth, async (req, res) => {
     try {
-        const profile = await Profile.findOne({ usuario: req.user.id })
+        const profile = await Profile.findOne({ user: req.user.id })
 
         // gets remove index
-        const removeIndex = profile.formacaoAcademica.map(item => item.id).indexOf(req.params.edu_id)
+        const removeIndex = profile.education.map(item => item.id).indexOf(req.params.edu_id)
 
         if(removeIndex == -1) {
             return res.status(404).json({ errors: [{ msg: 'Formação acadêmica não encontrada' }] })
         }
 
         // removes _ before id
-        profile.formacaoAcademica.splice(removeIndex, 1)
+        profile.education.splice(removeIndex, 1)
 
         await profile.save()
 
@@ -300,7 +303,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
     }
 })
 
-// @route   DELETE api/profile/github/:username
+// @route   GET api/profile/github/:username
 // @desc    Get user repos from Github
 // @access  Public
 router.get('/github/:username', (req, res) => {
@@ -313,6 +316,10 @@ router.get('/github/:username', (req, res) => {
 
         request(options, (error, response, body) => {
             if(error) console.error(error)
+
+            if(response.statusCode === 403) {
+                return res.status(403).json({ errors: [{ msg: 'Limite de taxa de uso da API do GitHub excedido. Favor aguardar alguns minutos' }] })
+            }
 
             if(response.statusCode !== 200) {
                 return res.status(404).json({ errors: [{ msg: 'Usuário Github não encontrado' }] })
