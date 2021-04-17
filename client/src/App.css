@@ -488,6 +488,34 @@ button {
   margin-bottom: 0.5rem;
 }
 
+.paginationBttns {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 8px 16px;
+  cursor: pointer;
+  margin: 0 4px;
+  outline: none;
+}
+
+.paginationBreak {
+  padding: 8px 16px;
+}
+
+.paginationBttns a:hover {
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.activeBttn a {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 5px;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
