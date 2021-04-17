@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPosts } from '../../actions/post'
 
-import ReactPaginate from 'react-paginate'
 import Spinner from '../layout/Spinner'
+import Pagination from '../layout/Pagination'
 import PostItem from './PostItem'
 import PostForm from './PostForm'
 
@@ -39,27 +39,11 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
             </p>
             <PostForm />
             <div className="posts" style={{ marginBottom: '20px' }}>
-                {/* {posts.map(post => (
-                    <PostItem key={post._id} post={post} />
-                ))} */}
                 {
                     displayPosts
                 }
             </div>
-            { pageCount > 1 &&
-                <ReactPaginate
-                    previousLabel={'<'}
-                    nextLabel={'>'}
-                    pageCount={pageCount}
-                    onPageChange={changePage}
-                    breakLabel={'...'}
-                    marginPagesDisplayed={3}
-                    pageRangeDisplayed={5}
-                    containerClassName={'paginationBttns'}
-                    activeClassName={'activeBttn'}
-                    breakClassName={'paginationBreak'}
-                />
-            }
+            <Pagination pageCount={pageCount} changePage={changePage} />
         </Fragment>
     )
 }
