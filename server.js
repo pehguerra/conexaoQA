@@ -35,9 +35,9 @@ const options = {
             }
         },
         servers: [
-        {
-            url: 'http://localhost:5000',
-        },
+            {
+                url: process.env.NODE_ENV === 'production' ? 'https://conexaoqa.herokuapp.com' : 'http://localhost:5000',
+            },
         ],
     },
     apis: ['./routes/api/users.js', './routes/api/auth.js', './routes/api/profile.js', './routes/api/posts.js']
