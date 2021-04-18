@@ -9,13 +9,14 @@ Aplicação para criar perfis de QA, compartilhar e postar dúvidas, dicas, vaga
 
 ## Funcionalidades
 
-- Registrar Usuário
+- Registrar usuário com senhas criptografadas
 - Login via JWT (JSON Web Token)
-- Criar Perfil
-- Integração com GitHub
-- Postar comentários
-- Like/Unlike em comentários
-- Criar threads de conversas em comentários
+- Criar perfil de usuário com experiências profissionais, formações acadêmicas e redes sociais
+- Integração com GitHub para exibir os últimos 5 repositórios
+- Postar dúvidas/sugestões/perguntas ou qualquer iteração com a comunidade de QA
+- Like/Unlike em posts
+- Criar threads de conversas em posts
+- áginação de posts e comentários a partir de 7 posts
 
 ___
 ## Tech
