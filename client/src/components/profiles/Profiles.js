@@ -1,12 +1,30 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getProfiles } from '../../actions/profile'
 
 import Spinner from '../layout/Spinner'
+import Pagination from '../layout/Pagination'
 import ProfileItem from './ProfileItem'
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+    const [pageNumber, setPageNumber] = useState(0)
+
+    const postsPerPage = 7
+    const pagesVisited = pageNumber * postsPerPage
+
+    const pageCount = Math.ceil(profiles.length / postsPerPage)
+
+    const displayPosts = profiles
+        .slice(pagesVisited, pagesVisited + postsPerPage)
+        .map(profile => (
+            <ProfileItem key={profile._id} profile={profile} />
+        ))
+
+    const changePage = ({ selected }) => {
+        setPageNumber(selected)
+    }
+
     useEffect(() => {
         getProfiles()
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,12 +38,9 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                     <i className="fab fa-connectdevelop"> Navegue e conecte-se com outros QAs</i>
                 </p>
                 <div className="profiles">
-                    {profiles.length > 0 ? (
-                        profiles.map(profile => (
-                            <ProfileItem key={profile._id} profile={profile} />
-                        ))
-                    ) : <h4>Nenhum perfil encontrado</h4>}
+                    {profiles.length > 0 ? displayPosts : <h4>Nenhum perfil encontrado</h4>}
                 </div>
+                <Pagination pageCount={pageCount} changePage={changePage} />
             </Fragment> }
         </Fragment>
     )
