@@ -43,10 +43,11 @@ const ProfileTop = ({ profile: { status, company, location, website, social, use
                         <i className="fab fa-instagram fa-2x"></i>
                     </a>
                 )}
-                
-                
-                
-                
+                {social && social.medium && (
+                    <a href={social.medium} target="_blank" rel="noopener noreferrer">
+                        <i className="fab fa-medium fa-2x"></i>
+                    </a>
+                )}
             </div>
         </div>
     )

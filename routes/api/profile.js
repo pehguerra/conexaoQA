@@ -121,6 +121,10 @@
  *                type: string
  *                format: url
  *                description: URL do perfil do Instagram
+ *              medium:
+ *                type: string
+ *                format: url
+ *                description: URL do perfil do Medium
  *          date:
  *            type: string
  *            format: date
@@ -247,6 +251,10 @@
  *                  type: string
  *                  format: url
  *                  description: URL do perfil do Instagram
+ *                medium:
+ *                  type: string
+ *                  format: url
+ *                  description: URL do perfil do Medium
  *            date:
  *              type: string
  *              format: date
@@ -300,6 +308,10 @@
  *            type: string
  *            format: url
  *            description: URL do perfil do Instagram
+ *          medium:
+ *            type: string
+ *            format: url
+ *            description: URL do perfil do Medium
  *      Response - Delete Entity:
  *        type: object
  *        properties:
@@ -502,7 +514,7 @@ router.post('/', [ auth, [
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { company, website, location, bio, status, githubusername, skills, youtube, facebook, twitter, instagram, linkedin } = req.body
+    const { company, website, location, bio, status, githubusername, skills, youtube, facebook, twitter, instagram, linkedin, medium } = req.body
 
     // builds profile object
     const profileFields = {}
@@ -524,6 +536,7 @@ router.post('/', [ auth, [
     facebook ? profileFields.social.facebook = facebook : profileFields.social.facebook = ''
     linkedin ? profileFields.social.linkedin = linkedin : profileFields.social.linkedin = ''
     instagram ? profileFields.social.instagram = instagram : profileFields.social.instagram = ''
+    medium ? profileFields.social.medium = medium : profileFields.social.medium = ''
 
     try {
         let profile = await Profile.findOne({ user: req.user.id })

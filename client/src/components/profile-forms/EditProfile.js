@@ -17,7 +17,8 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
         facebook: '',
         linkedin: '',
         youtube: '',
-        instagram: ''
+        instagram: '',
+        medium: ''
     })
 
     const [displaySocialInputs, toogleSocialInputs] = useState(false)
@@ -38,11 +39,12 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
             linkedin: loading || !profile.social ? '' : profile.social.linkedin,
             youtube: loading || !profile.social ? '' : profile.social.youtube,
             instagram: loading || !profile.social ? '' : profile.social.instagram,
+            medium: loading || !profile.social ? '' : profile.social.medium
         })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const { company, website, location, status, skills, githubusername, bio, twitter, facebook, linkedin, youtube, instagram } = formData
+    const { company, website, location, status, skills, githubusername, bio, twitter, facebook, linkedin, youtube, instagram, medium } = formData
 
     const handleChange = e => 
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -135,6 +137,11 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                     <div className="form-group social-input">
                         <i className="fab fa-instagram fa-2x"></i>
                         <input type="text" placeholder="Instagram URL" name="instagram" value={instagram} onChange={e => handleChange(e)} />
+                    </div>
+
+                    <div className="form-group social-input">
+                        <i className="fab fa-medium fa-2x"></i>
+                        <input type="text" placeholder="Medium URL" name="medium" value={medium} onChange={e => handleChange(e)} />
                     </div>
                 </Fragment>}
                 <input type="submit" className="btn btn-primary my-1" value="Editar Perfil" />
