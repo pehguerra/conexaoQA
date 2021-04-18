@@ -73,3 +73,8 @@ Por fim, iniciar a aplicação:
 npm run dev
 ```
 
+##### URLs
+
+`http://localhost:3000/` -> Aplicação ConexãoQA
+`http://localhost:5000/` -> Servidor backend (APIs)
+`http://localhost:5000/api-docs/` -> Documentação APIs REST - Swagger

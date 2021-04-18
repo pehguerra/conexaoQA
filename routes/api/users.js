@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      RegisterBody:
+ *        type: object
+ *        required:
+ *          - name
+ *          - email
+ *          - password
+ *        properties:
+ *          name:
+ *            type: string
+ *            description: Nome completo do usuário
+ *          email:
+ *            type: string
+ *            description: Email do usuário
+ *          password:
+ *            type: string
+ *            description: Senha de acesso criptografada do usuário
+ *        example:
+ *          name: Teste User
+ *          email: testuser@test.com
+ *          password: pass1234
+ */
 const express = require('express')
 const router = express.Router()
 const { check, validationResult } = require('express-validator')
@@ -8,9 +33,44 @@ const keys = require('../../config/keys')
 
 const User = require('../../models/User')
 
+/**
+ * @swagger
+ * tags:
+ *  name: Users
+ *  description: Cadastrar usuários
+ */
+
 // @route   POST api/users
 // @desc    Register user
 // @access  Public
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     summary: Cadastrar usuário
+ *     description: Cadastra um novo usuário na aplicação
+ *     tags: [Users]
+ *     requestBody:
+ *       description: Informadar *nome*, *email* e *password*
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/RegisterBody'
+ *     responses:
+ *       "201":
+ *         description: Cadastra o usuario e retorna o token válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
+ *       "400":
+ *         description: O body enviado não contém todas as chaves ou o usuário já existe no sistema
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
 router.post('/', [
     check('name', 'Name é obrigatório')
         .not()
@@ -73,7 +133,7 @@ router.post('/', [
             { expiresIn: 3600 },
             (err, token) => {
                 if(err) throw err
-                res.json({ jwt: token })
+                res.status(201).json({ jwt: token })
             })
     } catch(err) {
         console.error(err.message)

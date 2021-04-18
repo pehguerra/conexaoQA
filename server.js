@@ -1,6 +1,8 @@
 const express = require('express')
 const connectDB = require('./config/db')
 const path = require('path')
+const swaggerJsdoc = require("swagger-jsdoc")
+const swaggerUi = require("swagger-ui-express")
 
 const app = express()
 
@@ -18,6 +20,35 @@ app.use('/api/users', require('./routes/api/users'))
 app.use('/api/auth', require('./routes/api/auth'))
 app.use('/api/profile', require('./routes/api/profile'))
 app.use('/api/posts', require('./routes/api/posts'))
+
+const options = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'ConexaoQA - Express API com Swagger',
+            version: '1.0.0',
+            description:
+                'Documentação das APIs do ConexaoQA. Aplicação desenvolvida para treinar testes E2E e APIs com Cypress.io',
+            license: {
+                name: 'MIT',
+                url: 'https://spdx.org/licenses/MIT.html',
+            }
+        },
+        servers: [
+        {
+            url: 'http://localhost:5000',
+        },
+        ],
+    },
+    apis: ['./routes/api/users.js', './routes/api/auth.js', './routes/api/profile.js', './routes/api/posts.js']
+}
+
+const specs = swaggerJsdoc(options);
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(specs, { explorer: true })  // enables search bar
+)
 
 // serve statics assets in production
 if(process.env.NODE_ENV === 'production') {
