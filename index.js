@@ -10,6 +10,9 @@ connectDB()
 // init middleware to work with json (body and response)
 app.use(express.json({ extended: false }))
 
+// disable auto cache
+app.disable('etag')
+
 // define routes
 app.use('/api/users', require('./routes/api/users'))
 app.use('/api/auth', require('./routes/api/auth'))
