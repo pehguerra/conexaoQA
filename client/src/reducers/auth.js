@@ -3,7 +3,7 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS
 const initialState = {
     jwt: sessionStorage.getItem('jwt') || null,
     isAuthenticated: false,
-    loading: false,
+    loading: true,
     user: null
 }
 
