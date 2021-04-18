@@ -29,10 +29,6 @@ const options = {
             version: '1.0.0',
             description:
                 'Documentação das APIs do ConexaoQA. Aplicação desenvolvida para treinar testes E2E e APIs com Cypress.io',
-            license: {
-                name: 'MIT',
-                url: 'https://spdx.org/licenses/MIT.html',
-            }
         },
         servers: [
             {

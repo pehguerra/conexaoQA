@@ -30,7 +30,7 @@
  *        properties:
  *          errors:
  *            type: array
- *            description: Array de objetos com mensagens de erro que retornaram da aplicação
+ *            description: Objetos com mensagens de erro que retornaram da aplicação
  *            items: 
  *              type: object
  *              properties:
@@ -74,7 +74,7 @@ const User = require('../../models/User')
  * @swagger
  * tags:
  *  name: Auth
- *  description: Login de usuários
+ *  description: Login
  */
 
 // @route   GET api/auth
@@ -149,7 +149,7 @@ router.get('/', auth, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Response - Error'
  *       "401":
- *         description: Usuário ou senha incorretos/inválidos
+ *         description: Credenciais inválidos
  *         content:
  *           application/json:
  *             schema:

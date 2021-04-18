@@ -300,7 +300,7 @@
  *            type: string
  *            format: url
  *            description: URL do perfil do Instagram
- *      Response - Delete Profile:
+ *      Response - Delete Entity:
  *        type: object
  *        properties:
  *          msg:
@@ -387,7 +387,7 @@ const { restart } = require('nodemon')
  * @swagger
  * tags:
  *  name: Profile
- *  description: Perfil dos usuários
+ *  description: Perfil
  */
 
 // @route   GET api/profile/me
@@ -481,7 +481,7 @@ router.get('/me', auth, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Response - Error'
  *       "401":
- *         description: Usuário ou senha incorretos/inválidos
+ *         description: Token inválido
  *         content:
  *           application/json:
  *             schema:
@@ -648,7 +648,7 @@ router.get('/user/:user_id', async (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response - Delete Profile'
+ *               $ref: '#/components/schemas/Response - Delete Entity'
  *       "401":
  *         description: O token informado não é válido
  *         content:
