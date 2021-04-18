@@ -1,3 +1,376 @@
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Response - User Profile:
+ *        type: object
+ *        properties:
+ *          _id:
+ *            type: string
+ *            description: ID do usuário dono do perfil
+ *          company:
+ *            type: string
+ *            description: Empresa atual
+ *          location:
+ *            type: string
+ *            description: Cidade que está localizada a empresa
+ *          status:
+ *            type: string
+ *            description: Cargo atual
+ *          website:
+ *            type: string
+ *            description: Site pessoal ou da empresa
+ *          skills:
+ *            type: array
+ *            description: Conhecimentos/Habilidades, separados por vírgula
+ *            items:
+ *              type: string
+ *          bio:
+ *            type: string
+ *            description: Resumo do perfil do usuário
+ *          githubusername:
+ *            type: string
+ *            description: Usuário github
+ *          experience:
+ *            type: array
+ *            description: Experiências profissionais
+ *            items: 
+ *              type: object
+ *              properties:
+ *                _id:
+ *                  type: string
+ *                  description: ID gerado automaticamente da experiência
+ *                title:
+ *                  type: string
+ *                  description: Nome do cargo
+ *                company:
+ *                  type: string
+ *                  description: Empresa
+ *                location:
+ *                  type: string
+ *                  description: Localização
+ *                from:
+ *                  type: string
+ *                  format: date
+ *                  description: Data de ínicio
+ *                to:
+ *                  type: string
+ *                  format: date
+ *                  description: Data da saída
+ *                current:
+ *                  type: boolean
+ *                  default: false
+ *                  description: Cargo atual
+ *                description:
+ *                  type: string
+ *                  description: Descrição das atribuições
+ *          education:
+ *            type: array
+ *            description: Formação acadêmica
+ *            items:
+ *              type: object
+ *              properties:
+ *                _id:
+ *                  type: string
+ *                  description: ID gerado automaticamente da formação acadêmica
+ *                school:
+ *                  type: string
+ *                  description: Escola
+ *                degree:
+ *                  type: string
+ *                  description: Grau
+ *                fieldofstudy:
+ *                  type: string
+ *                  description: Curso
+ *                from:
+ *                  type: string
+ *                  format: date
+ *                  description: Data de ínicio
+ *                to:
+ *                  type: string
+ *                  format: date
+ *                  description: Data da saída
+ *                current:
+ *                  type: boolean
+ *                  default: false
+ *                  description: Cargo atual
+ *                description:
+ *                  type: string
+ *                  description: Descrição do curso
+ *          social:
+ *            type: object
+ *            description: Redes sociais
+ *            properties:
+ *              youtube:
+ *                type: string
+ *                format: url
+ *                description: URL do perfil do Youtube
+ *              twitter:
+ *                type: string
+ *                format: url
+ *                description: URL do perfil do Twitter
+ *              facebook:
+ *                type: string
+ *                format: url
+ *                description: URL do perfil do Facebook
+ *              linkedin:
+ *                type: string
+ *                format: url
+ *                description: URL do perfil do LinkedIn
+ *              instagram:
+ *                type: string
+ *                format: url
+ *                description: URL do perfil do Instagram
+ *          date:
+ *            type: string
+ *            format: date
+ *            description: Data gerada automaticamente com a data de criação do usuário
+ *      Response - Users Profiles:
+ *        type: array
+ *        description: Todos os perfis
+ *        items:
+ *          type: object
+ *          properties:
+ *            _id:
+ *              type: string
+ *              description: ID do usuário dono do perfil
+ *            company:
+ *              type: string
+ *              description: Empresa atual
+ *            location:
+ *              type: string
+ *              description: Cidade que está localizada a empresa
+ *            status:
+ *              type: string
+ *              description: Cargo atual
+ *            website:
+ *              type: string
+ *              description: Site pessoal ou da empresa
+ *            skills:
+ *              type: array
+ *              description: Conhecimentos/Habilidades, separados por vírgula
+ *              items:
+ *                type: string
+ *            bio:
+ *              type: string
+ *              description: Resumo do perfil do usuário
+ *            githubusername:
+ *              type: string
+ *              description: Usuário github
+ *            experience:
+ *              type: array
+ *              description: Experiências profissionais
+ *              items: 
+ *                type: object
+ *                properties:
+ *                  _id:
+ *                    type: string
+ *                    description: ID gerado automaticamente da experiência
+ *                  title:
+ *                    type: string
+ *                    description: Nome do cargo
+ *                  company:
+ *                    type: string
+ *                    description: Empresa
+ *                  location:
+ *                    type: string
+ *                    description: Localização
+ *                  from:
+ *                    type: string
+ *                    format: date
+ *                    description: Data de ínicio
+ *                  to:
+ *                    type: string
+ *                    format: date
+ *                    description: Data da saída
+ *                  current:
+ *                    type: boolean
+ *                    default: false
+ *                    description: Cargo atual
+ *                  description:
+ *                    type: string
+ *                    description: Descrição das atribuições
+ *            education:
+ *              type: array
+ *              description: Formação acadêmica
+ *              items:
+ *                type: object
+ *                properties:
+ *                  _id:
+ *                    type: string
+ *                    description: ID gerado automaticamente da formação acadêmica
+ *                  school:
+ *                    type: string
+ *                    description: Escola
+ *                  degree:
+ *                    type: string
+ *                    description: Grau
+ *                  fieldofstudy:
+ *                    type: string
+ *                    description: Curso
+ *                  from:
+ *                    type: string
+ *                    format: date
+ *                    description: Data de ínicio
+ *                  to:
+ *                    type: string
+ *                    format: date
+ *                    description: Data da saída
+ *                  current:
+ *                    type: boolean
+ *                    default: false
+ *                    description: Cargo atual
+ *                  description:
+ *                    type: string
+ *                    description: Descrição do curso
+ *            social:
+ *              type: object
+ *              description: Redes sociais
+ *              properties:
+ *                youtube:
+ *                  type: string
+ *                  format: url
+ *                  description: URL do perfil do Youtube
+ *                twitter:
+ *                  type: string
+ *                  format: url
+ *                  description: URL do perfil do Twitter
+ *                facebook:
+ *                  type: string
+ *                  format: url
+ *                  description: URL do perfil do Facebook
+ *                linkedin:
+ *                  type: string
+ *                  format: url
+ *                  description: URL do perfil do LinkedIn
+ *                instagram:
+ *                  type: string
+ *                  format: url
+ *                  description: URL do perfil do Instagram
+ *            date:
+ *              type: string
+ *              format: date
+ *              description: Data gerada automaticamente com a data de criação do usuário
+ *      Body - Profile:
+ *        type: object
+ *        required:
+ *          - status
+ *          - skills
+ *        properties:
+ *          company:
+ *            type: string
+ *            description: Empresa atual
+ *          status:
+ *            type: string
+ *            description: Cargo atual
+ *          location:
+ *            type: string
+ *            description: Cidade que está localizada a empresa
+ *          website:
+ *            type: string
+ *            description: Site pessoal ou da empresa
+ *          skills:
+ *            type: array
+ *            description: Conhecimentos/Habilidades, separados por vírgula
+ *            items:
+ *              type: string
+ *          bio:
+ *            type: string
+ *            description: Resumo do perfil do usuário
+ *          githubusername:
+ *            type: string
+ *            description: Usuário github
+ *          youtube:
+ *            type: string
+ *            format: url
+ *            description: URL do perfil do Youtube
+ *          twitter:
+ *            type: string
+ *            format: url
+ *            description: URL do perfil do Twitter
+ *          facebook:
+ *            type: string
+ *            format: url
+ *            description: URL do perfil do Facebook
+ *          linkedin:
+ *            type: string
+ *            format: url
+ *            description: URL do perfil do LinkedIn
+ *          instagram:
+ *            type: string
+ *            format: url
+ *            description: URL do perfil do Instagram
+ *      Response - Delete Profile:
+ *        type: object
+ *        properties:
+ *          msg:
+ *            type: string
+ *            description: Descrição da mensagem  
+ *      Body - Experience:
+ *        type: object
+ *        required:
+ *          - title
+ *          - company
+ *          - from
+ *        properties:
+ *          title:
+ *            type: string
+ *            description: Cargo
+ *          company:
+ *            type: string
+ *            description: Empresa
+ *          location:
+ *            type: string
+ *            description: Localização
+ *          from:
+ *            type: string
+ *            format: date
+ *            description: Data de ínicio
+ *          to:
+ *            type: string
+ *            format: date
+ *            description: Data da saída
+ *          current:
+ *            type: boolean
+ *            default: false
+ *            description: Cargo atual
+ *          description:
+ *            type: string
+ *            description: Descrição das atribuições
+ *      Body - Education:
+ *        type: object
+ *        required:
+ *          - school
+ *          - degree
+ *          - fieldofstudy
+ *          - from
+ *        properties:
+ *          school:
+ *            type: string
+ *            description: Escola
+ *          degree:
+ *            type: string
+ *            description: Grau
+ *          fieldofstudy:
+ *            type: string
+ *            description: Curso
+ *          from:
+ *            type: string
+ *            format: date
+ *            description: Data de ínicio
+ *          to:
+ *            type: string
+ *            format: date
+ *            description: Data da saída
+ *          current:
+ *            type: boolean
+ *            default: false
+ *            description: Cargo atual
+ *          description:
+ *            type: string
+ *            description: Descrição das atribuições
+ */
+
 const express = require('express')
 const router = express.Router()
 const auth = require('../../middleware/auth')
@@ -10,9 +383,44 @@ const User = require('../../models/User')
 const Post = require('../../models/Post')
 const { restart } = require('nodemon')
 
+/**
+ * @swagger
+ * tags:
+ *  name: Profile
+ *  description: Perfil dos usuários
+ */
+
 // @route   GET api/profile/me
 // @desc    Current users profile
 // @access  Private
+/**
+ * @swagger
+ * /api/profile/me:
+ *   get:
+ *     summary: Selecionar o perfil do usuário logado
+ *     description: Seleciona o perfil do usuário logado com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: header
+ *         name: x-auth-token
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token do usuário
+ *     responses:
+ *       "200":
+ *         description: Perfil do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "401":
+ *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.get('/me', auth, async (req, res) => {
     try {
 
@@ -32,6 +440,53 @@ router.get('/me', auth, async (req, res) => {
 // @route   POST api/profile
 // @desc    Create or update user profile
 // @access  Private
+/**
+ * @swagger
+ * /api/profile:
+ *   post:
+ *     summary: Criar/Atualizar perfil
+ *     description: Cria ou atualiza um perfil existente para o usuário com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: header
+ *         name: x-auth-token
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token do usuário
+ *     requestBody:
+ *       description: Informações do perfil
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Body - Profile'
+ *     responses:
+ *       "200":
+ *         description: Perfil do usuário atualizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "201":
+ *         description: Perfil do usuário criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "400":
+ *         description: O body enviado não contém todas as chaves obrigatórias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "401":
+ *         description: Usuário ou senha incorretos/inválidos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.post('/', [ auth, [
     check('status', 'Status é obrigatório')
         .not()
@@ -88,7 +543,7 @@ router.post('/', [ auth, [
         profile = new Profile(profileFields)
 
         await profile.save()
-        res.json(profile)
+        res.status(201).json(profile)
     } catch(err) {
         res.status(500).send('Server error')
     }
@@ -97,6 +552,21 @@ router.post('/', [ auth, [
 // @route   GET api/profile
 // @desc    Get all profiles
 // @access  Public
+/**
+ * @swagger
+ * /api/profile:
+ *   get:
+ *     summary: Selecionar todos os perfis cadastrados
+ *     description: Seleciona todos os perfis cadastrados no banco
+ *     tags: [Profile]
+ *     responses:
+ *       "200":
+ *         description: Array com os perfis dos usuários
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Users Profiles'
+ */
 router.get('/', async (req, res) => {
     try {
         const profiles = await Profile.find().populate('user', ['name', 'avatar'])
@@ -110,6 +580,34 @@ router.get('/', async (req, res) => {
 // @route   GET api/profile/user/:user_id
 // @desc    Get profile by user id
 // @access  Public
+/**
+ * @swagger
+ * /api/profile/user/{userId}:
+ *   get:
+ *     summary: Selecionar o perfil do usuário pelo ID
+ *     description: Seleciona o perfil do usuário logado com base no ID informado no parâmetro de path
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID do usuário cadastrado no banco
+ *     responses:
+ *       "200":
+ *         description: Perfil do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "401":
+ *         description: Perfil não encontrado/existe
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.get('/user/:user_id', async (req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.params.user_id }).populate('user', ['name', 'avatar'])
@@ -130,6 +628,34 @@ router.get('/user/:user_id', async (req, res) => {
 // @route   DELETE api/profile
 // @desc    Delete profile, user & posts
 // @access  Private
+/**
+ * @swagger
+ * /api/profile:
+ *   delete:
+ *     summary: Deletar conta do usuário
+ *     description: Deleta o perfil, posts e a conta do usuário com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: header
+ *         name: x-auth-token
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token do usuário
+ *     responses:
+ *       "200":
+ *         description: Usuário excluído
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Delete Profile'
+ *       "401":
+ *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.delete('/', auth, async (req, res) => {
     try {
         // removes user posts
@@ -150,6 +676,47 @@ router.delete('/', auth, async (req, res) => {
 // @route   PUT api/profile/experience
 // @desc    Add profile experience
 // @access  Private
+/**
+ * @swagger
+ * /api/profile/experience:
+ *   put:
+ *     summary: Adicionar experiência profissional
+ *     description: Adiciona experiência profissional no perfil com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: header
+ *         name: x-auth-token
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token do usuário
+ *     requestBody:
+ *       description: Informações da experiência profissional
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Body - Experience'
+ *     responses:
+ *       "200":
+ *         description: Perfil do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "400":
+ *         description: O body enviado não contém todas as chaves obrigatórias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "401":
+ *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.put('/experience', [ auth, [
     check('title', 'Posição é obrigatório')
         .not()
@@ -197,6 +764,46 @@ router.put('/experience', [ auth, [
 // @route   DELETE api/profile/experience/:exp_id
 // @desc    Delete experience from profile
 // @access  Private
+/**
+ * @swagger
+ * /api/profile/experience/{expId}:
+ *   delete:
+ *     summary: Deletar experiência profissional
+ *     description: Deleta experiência profissional com base no ID informado no path parameter e no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: header
+ *         name: x-auth-token
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token do usuário
+ *       - in: path
+ *         name: expId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID da experiência profissional
+ *     responses:
+ *       "200":
+ *         description: Perfil do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "401":
+ *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "404":
+ *         description: Experiência não encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.delete('/experience/:exp_id', auth, async (req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.user.id })
@@ -222,6 +829,47 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 // @route   PUT api/profile/education
 // @desc    Add profile education
 // @access  Private
+/**
+ * @swagger
+ * /api/profile/education:
+ *   put:
+ *     summary: Adicionar formação acadêmica
+ *     description: Adiciona formação acadêmica no perfil com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: header
+ *         name: x-auth-token
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token do usuário
+ *     requestBody:
+ *       description: Informações da formação acadêmica
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Body - Education'
+ *     responses:
+ *       "200":
+ *         description: Perfil do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "400":
+ *         description: O body enviado não contém todas as chaves obrigatórias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "401":
+ *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.put('/education', [ auth, [
     check('school', 'Escola é obrigatório')
         .not()
@@ -272,6 +920,46 @@ router.put('/education', [ auth, [
 // @route   DELETE api/profile/education/:edu_id
 // @desc    Delete education from profile
 // @access  Private
+/**
+ * @swagger
+ * /api/profile/education/{eduId}:
+ *   delete:
+ *     summary: Deletar formação acadêmica
+ *     description: Deleta formação acadêmica com base no ID informado no path parameter e no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: header
+ *         name: x-auth-token
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token do usuário
+ *       - in: path
+ *         name: eduId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID da formação acadêmica
+ *     responses:
+ *       "200":
+ *         description: Perfil do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - User Profile'
+ *       "401":
+ *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "404":
+ *         description: Experiência não encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.delete('/education/:edu_id', auth, async (req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.user.id })
@@ -297,6 +985,36 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // @route   GET api/profile/github/:username
 // @desc    Get user repos from Github
 // @access  Public
+/**
+ * @swagger
+ * /api/profile/github/{gitHubUsername}:
+ *   get:
+ *     summary: Selecionar repositórios GitHub
+ *     description: Seleciona o perfil do usuário logado com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
+ *     tags: [Profile]
+ *     parameters:
+ *       - in: path
+ *         name: gitHubUsername
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Usuário GitHub
+ *     responses:
+ *       "200":
+ *         description: Repositórios GitHub
+ *       "403":
+ *         description: Limite de requests na API do GitHub excedido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "404":
+ *         description: Usuário GitHub não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ */
 router.get('/github/:username', (req, res) => {
     try {
         const options = {

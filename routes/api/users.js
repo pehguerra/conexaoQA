@@ -2,7 +2,7 @@
  * @swagger
  *  components:
  *    schemas:
- *      RegisterBody:
+ *      Body - Register:
  *        type: object
  *        required:
  *          - name
@@ -18,10 +18,6 @@
  *          password:
  *            type: string
  *            description: Senha de acesso criptografada do usuário
- *        example:
- *          name: Teste User
- *          email: testuser@test.com
- *          password: pass1234
  */
 const express = require('express')
 const router = express.Router()
@@ -56,20 +52,20 @@ const User = require('../../models/User')
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/RegisterBody'
+ *             $ref: '#/components/schemas/Body - Register'
  *     responses:
  *       "201":
  *         description: Cadastra o usuario e retorna o token válido
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/LoginResponse'
+ *               $ref: '#/components/schemas/Response - Login'
  *       "400":
- *         description: O body enviado não contém todas as chaves ou o usuário já existe no sistema
+ *         description: O body enviado não contém todas as chaves obrigatórias
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Response - Error'
  */
 router.post('/', [
     check('name', 'Name é obrigatório')

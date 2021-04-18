@@ -2,17 +2,11 @@
  * @swagger
  *  components:
  *    schemas:
- *      AuthResponse:
+ *      Response - Auth:
  *        type: object
- *        required:
- *          - _id:
- *          - name
- *          - email
- *          - password
- *          - date
  *        properties:
  *          _id:
- *            type: integer
+ *            type: string
  *            description: ID gerado automaticamente do usuário
  *          name:
  *            type: string
@@ -31,16 +25,8 @@
  *            type: string
  *            format: date
  *            description: Data gerada automaticamente com a data de criação do usuário
- *        example:
- *           _id: 609688tr7bc7fp32c8c014db
- *           name: Test User
- *           email: testuser@test.com
- *           avatar: //www.gravatar.com/avatar/p17f2485e95e6bae54932a61baf60b97?s=200&r=pg&d=mm
- *           date: 2021-04-15T00:28:58.416Z
- *      ErrorResponse:
+ *      Response - Error:
  *        type: object
- *        required:
- *          - errors
  *        properties:
  *          errors:
  *            type: array
@@ -51,9 +37,7 @@
  *                msg:
  *                  type: string
  *                  description: Mensagem de erro retornada da API
- *        example:
- *          errors: [msg: Mensagem de erro]
- *      LoginBody:
+ *      Body - Login:
  *        type: object
  *        required:
  *          - email
@@ -68,16 +52,12 @@
  *        example:
  *          email: testuser@test.com
  *          password: pass1234
- *      LoginResponse:
+ *      Response - Login:
  *        type: object
- *        required:
- *          - jwt
  *        properties:
  *          jwt:
  *            type: string
  *            description: Token válido do usuário
- *        example:
- *          jwt: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA3Nzg4Y2E3YmM3YmYzZmM4YzA0NWRiIn0sImlhdCI6MTYxODc2OTEwNSwiZXhwIjoxNjE4NzcyNzA1fQ.CgO0TK4cTT3fX_JgM776dznXHJd4nmO_A37RncBGQvU
  */
 
 const express = require('express')
@@ -120,13 +100,13 @@ const User = require('../../models/User')
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AuthResponse'
+ *               $ref: '#/components/schemas/Response - Auth'
  *       "401":
  *         description: O token informado não é válido
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Response - Error'
  */
 router.get('/', auth, async (req, res) => {
     try {
@@ -154,26 +134,26 @@ router.get('/', auth, async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/LoginBody'
+ *             $ref: '#/components/schemas/Body - Login'
  *     responses:
  *       "200":
  *         description: Token válido do usuário
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/LoginResponse'
+ *               $ref: '#/components/schemas/Response - Login'
  *       "400":
- *         description: O body enviado não contém todas as chaves
+ *         description: O body enviado não contém todas as chaves obrigatórias
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Response - Error'
  *       "401":
  *         description: Usuário ou senha incorretos/inválidos
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Response - Error'
  */
 router.post('/', [
     check('email', 'Por favor inclua um email válido')

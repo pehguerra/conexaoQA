@@ -25,7 +25,7 @@ const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'ConexaoQA - Express API com Swagger',
+            title: 'ConexãoQA - Express API com Swagger',
             version: '1.0.0',
             description:
                 'Documentação das APIs do ConexaoQA. Aplicação desenvolvida para treinar testes E2E e APIs com Cypress.io',
@@ -40,7 +40,7 @@ const options = {
             },
         ],
     },
-    apis: ['./routes/api/users.js', './routes/api/auth.js', './routes/api/profile.js', './routes/api/posts.js']
+    apis: ['./routes/api/auth.js', './routes/api/posts.js', './routes/api/profile.js', './routes/api/users.js']
 }
 
 const specs = swaggerJsdoc(options);
