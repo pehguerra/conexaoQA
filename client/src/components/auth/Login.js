@@ -4,6 +4,37 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
 
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField';
+
+const CssTextField = withStyles({
+    root: {
+        '& label.Mui-focused': {
+            color: '#17a2b8',
+        },
+        '& label.Mui-error': {
+            color: 'red',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#17a2b8',
+        },
+        '& .Mui-error:after': {
+            borderBottomColor: 'red !important'
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'red',
+            },
+            '&:hover fieldset': {
+                borderColor: 'yellow',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#17a2b8',
+            },
+        },
+    },
+})(TextField)
+
 const Login = ({ login, isAuthenticated }) => {
     const [formData, setFormData] = useState({
         email: '',
@@ -15,7 +46,7 @@ const Login = ({ login, isAuthenticated }) => {
     const handleChange = e => 
         setFormData({ ...formData, [e.target.name]: e.target.value })
 
-    const handleSubmit = async e => {
+    const handleSubmit = e => {
         e.preventDefault()
         login(email, password)
     }
@@ -29,26 +60,33 @@ const Login = ({ login, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Entrar</h1>
             <p className="lead"><i className="fas fa-user"></i> Acessar Conta</p>
-            <form className="form" action="create-profile.html" onSubmit={e => handleSubmit(e)}>
-                <div className="form-group">
-                    <input 
+            <form action="create-profile.html" onSubmit={e => handleSubmit(e)}>
+                <div className="my-1">
+                    <CssTextField 
                         type="email" 
-                        placeholder="Endereço de Email" 
+                        label="Email" 
                         name="email"
                         value={email}
                         onChange={e => handleChange(e)}
                         required 
+                        fullWidth
+                        autoFocus
+                        autoComplete="email"
+                        error={email === ""}
+                        helperText={email === "" ? 'Campo obrigatório' : ''}
                     />
                 </div>
-                <div className="form-group">
-                    <input
+                <div className="my-1">
+                    <CssTextField
                         type="password"
-                        placeholder="Senha"
+                        label="Senha"
                         name="password"
                         value={password}
                         onChange={e => handleChange(e)}
                         minLength="6"
                         required
+                        fullWidth
+                        autoComplete="current-password"
                     />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Entrar" />
