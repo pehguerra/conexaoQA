@@ -719,13 +719,19 @@ router.delete('/', auth, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Response - User Profile'
  *       "400":
- *         description: O body enviado não contém todas as chaves obrigatórias
+ *         description: O body enviado não contém todas as chaves obrigatórias ou contém informações inválidas
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Response - Error'
  *       "401":
  *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "404":
+ *         description: Perfil não encontrado
  *         content:
  *           application/json:
  *             schema:
@@ -751,6 +757,14 @@ router.put('/experience', [ auth, [
 
     const { title, company, location, from, to, current, description } = req.body
 
+    if (typeof to !== "undefined" && current === true) {
+        return res.status(400).json({ errors: [{ msg: 'A chave to não pode ser preenchida se a chave current é true' }] })
+    }
+
+    if (typeof to === "undefined" && current === false) {
+        return res.status(400).json({ errors: [{ msg: 'A chave to precisa ser preenchida se a chave current é false' }] })
+    }
+
     // creates new experience
     const newExp = {
         title,
@@ -764,6 +778,10 @@ router.put('/experience', [ auth, [
 
     try {
         const profile = await Profile.findOne({ user: req.user.id })
+
+        if(!profile) {
+            return res.status(404).json({ errors: [{ msg: 'Perfil não encontrado' }] })
+        }
         
         profile.experience.unshift(newExp)
 
@@ -872,13 +890,19 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Response - User Profile'
  *       "400":
- *         description: O body enviado não contém todas as chaves obrigatórias
+ *         description: O body enviado não contém todas as chaves obrigatórias ou contém informações inválidas
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Response - Error'
  *       "401":
  *         description: O token informado não é válido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Response - Error'
+ *       "404":
+ *         description: Perfil não encontrado
  *         content:
  *           application/json:
  *             schema:
@@ -907,6 +931,14 @@ router.put('/education', [ auth, [
 
     const { school, degree, fieldofstudy, from, to, current, description } = req.body
 
+    if (typeof to !== "undefined" && current === true) {
+        return res.status(400).json({ errors: [{ msg: 'A chave to não pode ser preenchida se a chave current é true' }] })
+    }
+
+    if (typeof to === "undefined" && current === false) {
+        return res.status(400).json({ errors: [{ msg: 'A chave to precisa ser preenchida se a chave current é false' }] })
+    }
+
     // creates new experience
     const newEdu = {
         school,
@@ -920,6 +952,10 @@ router.put('/education', [ auth, [
 
     try {
         const profile = await Profile.findOne({ user: req.user.id })
+
+        if(!profile) {
+            return res.status(404).json({ errors: [{ msg: 'Perfil não encontrado' }] })
+        }
         
         profile.education.unshift(newEdu)
 
@@ -968,7 +1004,7 @@ router.put('/education', [ auth, [
  *             schema:
  *               $ref: '#/components/schemas/Response - Error'
  *       "404":
- *         description: Experiência não encontrada
+ *         description: Formação acadêmica não encontrada
  *         content:
  *           application/json:
  *             schema:
