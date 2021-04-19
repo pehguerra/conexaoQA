@@ -3,14 +3,14 @@ import React, { Fragment } from 'react'
 const About = () => {
     return (
         <Fragment>
-            <h1 className="large text-primary"><i class="fas fa-exclamation-circle"></i> Sobre</h1>
+            <h1 className="large text-primary"><i className="fas fa-exclamation-circle"></i> Sobre</h1>
             <hr className="my-15" />
             <div>
-                <p className="lead"><i class="fas fa-bullseye"></i> Propósito</p>
+                <p className="lead"><i className="fas fa-bullseye"></i> Propósito</p>
                 <p>Projeto web para praticar/treinar/testar automação de testes E2E e API com Cypress.io ou qualquer outro framework de teste</p>
             </div>
             <div className="my-2">
-                <p className="lead"><i class="fas fa-sitemap"></i> Funcionalidades</p>
+                <p className="lead"><i className="fas fa-sitemap"></i> Funcionalidades</p>
                 <ul>
                     <li>- Registrar usuário com senhas criptografadas</li>
                     <li>- Login via JWT (JSON Web Token)</li>
@@ -23,15 +23,15 @@ const About = () => {
                 </ul>
             </div>
             <div className="my-2">
-                <p className="lead"><i class="fab fa-github"></i> GitHub Repositório</p>
+                <p className="lead"><i className="fab fa-github"></i> GitHub Repositório</p>
                 <a href="https://github.com/pehguerra/conexaoQA" target="_blank" rel="noopener noreferrer">ConexãoQA Repositório</a>
             </div>
             <div className="my-2">
-                <p className="lead"><i class="fas fa-cog"></i> Swagger - Documentação da API</p>
+                <p className="lead"><i className="fas fa-cog"></i> Swagger - Documentação da API</p>
                 <a href="https://conexaoqa.herokuapp.com/api-docs/" target="_blank" rel="noopener noreferrer">Express API com Swagger</a>
             </div>
             <div className="my-2">
-                <p className="lead"><i class="fab fa-medium"></i> Medium</p>
+                <p className="lead"><i className="fab fa-medium"></i> Medium</p>
                 <a href="https://conexaoqa.herokuapp.com/api-docs/" target="_blank" rel="noopener noreferrer">Artigos de Cypress</a>
             </div>
         </Fragment>
