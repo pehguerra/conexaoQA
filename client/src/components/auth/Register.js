@@ -21,7 +21,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     const handleSubmit = async e => {
         e.preventDefault()
         if(password !== password2) {
-            setAlert('Senhas precisam ser idênticas', 'danger')
+            setAlert('Senhas precisam ser idênticas', 'danger', 10000)
         } else {
             register({ name, email, password })
         }

@@ -17,7 +17,6 @@ const Pagination = ({ pageCount, changePage }) => {
                     pageRangeDisplayed={5}
                     containerClassName={'paginationBttns'}
                     activeClassName={'activeBttn'}
-                    breakClassName={'paginationBreak'}
                 />
             }
         </Fragment>

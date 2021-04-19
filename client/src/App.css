@@ -504,10 +504,6 @@ button {
   outline: none;
 }
 
-.paginationBreak {
-  padding: 8px 16px;
-}
-
 .paginationBttns a:hover {
   background-color: #ddd;
   border-radius: 5px;
