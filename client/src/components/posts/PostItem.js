@@ -5,14 +5,22 @@ import Moment from 'react-moment'
 import { connect } from 'react-redux'
 import { addLike, removeLike, deletePost } from '../../actions/post'
 
-const PostItem = ({ addLike, removeLike, deletePost, auth, post: { _id, text, name, avatar, user, likes, comments, date }, showActions }) => {
+const PostItem = ({ addLike, removeLike, deletePost, auth, post: { _id, text, name, avatar, user, likes, comments, date }, showActions, hasProfile }) => {   
     return (
         <div className="post bg-white p-1 my-1">
             <div>
-                <Link to={`/perfil/${user}`}>
-                    <img className="round-img" src={avatar} alt="" />
-                    <h4>{name}</h4>
-                </Link>
+                {hasProfile ? (
+                    <Link to={`/perfil/${user}`}>
+                        <img className="round-img" src={avatar} alt="" />
+                        <h4>{name}</h4>
+                    </Link>
+                ) : (
+                    <Fragment>
+                        <img className="round-img" src={avatar} alt="" />
+                        <h4>{name}</h4>
+                    </Fragment>
+                )}
+                
             </div>
             <div>
                 <p className="my-1">
@@ -55,7 +63,7 @@ PostItem.propTypes = {
     auth: PropTypes.object.isRequired,
     addLike: PropTypes.func.isRequired,
     removeLike: PropTypes.func.isRequired,
-    deletePost: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({ auth }) => ({

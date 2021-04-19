@@ -14,9 +14,6 @@
  *          email:
  *            type: string
  *            description: Email do usuário
- *          password:
- *            type: string
- *            description: Senha de acesso criptografada do usuário
  *          avatar:
  *            type: string
  *            format: url

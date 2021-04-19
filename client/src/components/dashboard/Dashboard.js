@@ -20,7 +20,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
         <p className="lead">
             <i className="fas fa-user"></i> Bem-vindo { user && user.name }
         </p>
-        {profile !== null && !('noProfile' in profile) ? (
+        {profile !== null && !('errors' in profile) ? (
             <Fragment>
                 <DashboardActions />
                 <Experience experience={profile.experience} />
