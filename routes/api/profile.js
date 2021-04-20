@@ -757,7 +757,7 @@ router.put('/experience', [ auth, [
 
     const { title, company, location, from, to, current, description } = req.body
 
-    if (typeof to !== "undefined" && current === true) {
+    if ((typeof to !== "undefined" && to !== "") && current === true) {
         return res.status(400).json({ errors: [{ msg: 'A chave to não pode ser preenchida se a chave current é true' }] })
     }
 
@@ -931,7 +931,7 @@ router.put('/education', [ auth, [
 
     const { school, degree, fieldofstudy, from, to, current, description } = req.body
 
-    if (typeof to !== "undefined" && current === true) {
+    if ((typeof to !== "undefined" && to !== "") && current === true) {
         return res.status(400).json({ errors: [{ msg: 'A chave to não pode ser preenchida se a chave current é true' }] })
     }
 
