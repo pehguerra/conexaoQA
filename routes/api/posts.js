@@ -654,6 +654,10 @@ router.post('/comment/:id', [ auth, [
         const user = await User.findById(req.user.id).select('-password')
         const post = await Post.findById(req.params.id)
     
+        if (!post) {
+            return res.status(404).json({ errors: [{ msg: 'Post não encontrado' }] }) 
+        }
+
         const newCommand = {
             text: req.body.text,
             name: user.name,
@@ -667,6 +671,10 @@ router.post('/comment/:id', [ auth, [
 
         res.status(201).json(post.comments)
     } catch(err) {
+        if(err.kind == 'ObjectId') {
+            return res.status(404).json({ errors: [{ msg: 'Post não encontrado' }] })
+        }
+
         res.status(500).send('Server error')
     }
 })
@@ -723,6 +731,10 @@ router.post('/comment/:id', [ auth, [
 router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     try {
         const post = await Post.findById(req.params.id)
+
+        if (!post) {
+            return res.status(404).json({ errors: [{ msg: 'Post não encontrado' }] }) 
+        }
     
         // pull out comment
         const comment = post.comments.find(comment => comment.id === req.params.comment_id)
@@ -746,6 +758,10 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
  
          res.json(post.comments)
     } catch (err) {
+        if(err.kind == 'ObjectId') {
+            return res.status(404).json({ errors: [{ msg: 'Post ou Comentário não encontrado' }] })
+        }
+
         res.status(500).send('Server error')
     }
 })
