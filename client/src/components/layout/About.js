@@ -32,7 +32,7 @@ const About = () => {
             </div>
             <div className="my-2">
                 <p className="lead"><i className="fab fa-medium"></i> Medium</p>
-                <a href="https://conexaoqa.herokuapp.com/api-docs/" target="_blank" rel="noopener noreferrer">Artigos de Cypress</a>
+                <a href="https://pedrohsguerra.medium.com/" target="_blank" rel="noopener noreferrer">Artigos de Cypress</a>
             </div>
         </Fragment>
     )
