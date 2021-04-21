@@ -520,13 +520,13 @@ router.post('/', [ auth, [
     // builds profile object
     const profileFields = {}
     profileFields.user = req.user.id
-    if (company) profileFields.company = company
-    if (website) profileFields.website = website
-    if (location) profileFields.location = location
-    if (bio) profileFields.bio = bio
-    if (status) profileFields.status = status
-    if (githubusername) profileFields.githubusername = githubusername
-    if (skills) {
+    if ('company' in req.body) profileFields.company = company
+    if ('website' in req.body) profileFields.website = website
+    if ('location' in req.body) profileFields.location = location
+    if ('bio' in req.body) profileFields.bio = bio
+    if ('status' in req.body) profileFields.status = status
+    if ('githubusername' in req.body) profileFields.githubusername = githubusername
+    if ('skills' in req.body) {
         profileFields.skills = skills.split(',').map(skill => skill.trim())
     }
 
