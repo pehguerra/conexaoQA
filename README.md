@@ -44,14 +44,21 @@ Clonar o projeto:
 git clone https://github.com/pehguerra/conexaoQA.git
 ```
 
-Instalar as dependências dentro da pasta do projeto:
+Navegar para pasta do projeto e instalar as dependências do back-end:
 
 ```sh
 cd conexaoQA
 npm install
 ```
 
-Dentro do código, criar as variáveis de ambiente:
+Navegar para pasta client e instalar as dependências do front-end:
+
+```sh
+cd client
+npm install
+```
+
+Dentro do projeto, criar as variáveis de ambiente:
 - Dentro da pasta config criar o arquivo dev.js
 - dev.js:
 
@@ -69,8 +76,9 @@ module.exports = {
 - **githubClientId:** Gerar um OAuth App dentro do [GitHub](http://github.com/), selecionando Settings -> Developer Settings -> OAuth Apps. HomepageURL e Authorization callback URL que são pedidos na hora da criação das chaves pode ser `http://localhost:3000`
 - **githubSecret:** Gerada junto com o githubClientId
 
-Por fim, iniciar a aplicação:
+Por fim, iniciar a aplicação a partir da pasta raiz do projeto, mesma pasta que foi instalada as dependências do back-end:
 ```sh
+cd ..
 npm run dev
 ```
 

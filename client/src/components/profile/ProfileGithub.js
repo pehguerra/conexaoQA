@@ -5,13 +5,19 @@ import { getGithubRepos } from '../../actions/profile'
 
 import Spinner from '../layout/Spinner'
 
-const ProfileGithub = ({ username, getGithubRepos, repos }) => {
+const ProfileGithub = ({ username, getGithubRepos, repos, error }) => {
     useEffect(() => {
         getGithubRepos(username)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     return (
+        error && error.status === 403 ? 
+        <div>
+            <h2 className="text-primary my-1">Repositórios GitHub</h2>
+            <p className="Lead">Limite de taxa de uso da API do GitHub excedido. Aguarde alguns minutos</p>
+        </div>
+        :
         <div className="profile-github">
             <h2 className="text-primary my-1">Repositórios GitHub</h2>
             {repos === null ? <Spinner /> : (
@@ -49,10 +55,11 @@ ProfileGithub.propTypes = {
     getGithubRepos: PropTypes.func.isRequired,
     repos: PropTypes.array.isRequired,
     username: PropTypes.string.isRequired,
+    error: PropTypes.object
 }
 
-const mapStateToPros = ({ profile: { repos } }) => ({
-    repos
+const mapStateToPros = ({ profile: { repos, error } }) => ({
+    repos, error
 })
 
 export default connect(mapStateToPros, { getGithubRepos })(ProfileGithub)
