@@ -51,8 +51,6 @@ const CreateProfile = ({ createProfile, history }) => {
             return
         }
 
-        console.log(e)
-
         if (e.target.name === 'status') {
             setStatusTouched(true)
         } else if (e.target.name === 'skills') {
@@ -153,7 +151,7 @@ const CreateProfile = ({ createProfile, history }) => {
                 <i className="fas fa-user"></i> Vamos coletar algumas informações para fazer seu perfil se destacar
             </p>
             <small>* = campos obrigatórios</small>
-            <form onSubmit={e => handleSubmit(e)} noValidate>
+            <form className="form-input" onSubmit={e => handleSubmit(e)} noValidate>
                 <div className="my-1">
                         {/* <InputLabel required>Status</InputLabel>
                         <CssSelect
@@ -264,7 +262,7 @@ const CreateProfile = ({ createProfile, history }) => {
                     <small className="form-text">Conte-nos um pouco sobre você</small>
                 </div>
 
-                <div className="my-2">
+                <div className="my-1">
                     <button onClick={() => toogleSocialInputs(!displaySocialInputs)} type="button" className="btn btn-light">
                         Adicionar Redes Sociais
                     </button>
@@ -273,7 +271,6 @@ const CreateProfile = ({ createProfile, history }) => {
 
                 {displaySocialInputs && <Fragment>
                     <div className="my-1 social-input">
-                        
                         <Grid container spacing={1} alignItems="flex-end">
                             <Grid item style={{ minWidth: '5%'}}>
                                 <i className="fab fa-twitter fa-2x"></i>
@@ -293,7 +290,6 @@ const CreateProfile = ({ createProfile, history }) => {
                                 />
                             </Grid>
                         </Grid>
-                        
                     </div>
 
                     <div className="my-1 social-input">

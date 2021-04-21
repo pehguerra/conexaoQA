@@ -278,6 +278,11 @@ button {
   font: inherit;
 }
 
+.form-input input[type='submit'],
+button {
+  font: inherit;
+}
+
 .form .social-input {
   display: flex;
 }

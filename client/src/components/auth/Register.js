@@ -97,7 +97,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Cadastrar</h1>
             <p className="lead"><i className="fas fa-user"></i> Criar Sua Conta</p>
-            <form onSubmit={e => handleSubmit(e)} noValidate>
+            <form className="form-input" onSubmit={e => handleSubmit(e)} noValidate>
                 <div className="my-1">
                     <CssTextField
                         type="text" 
