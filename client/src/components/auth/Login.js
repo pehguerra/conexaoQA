@@ -70,7 +70,7 @@ const Login = ({ login, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Entrar</h1>
             <p className="lead"><i className="fas fa-user"></i> Acessar Conta</p>
-            <form action="create-profile.html" onSubmit={e => handleSubmit(e)} noValidate>
+            <form onSubmit={e => handleSubmit(e)} noValidate>
                 <div className="my-1">
                     <CssTextField 
                         type="email"

@@ -26,5 +26,5 @@ export const CssTextField = withStyles({
                 borderColor: '#17a2b8',
             },
         },
-    },
+    }
 })(TextField)
