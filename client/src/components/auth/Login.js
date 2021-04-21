@@ -4,36 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
 
-import { withStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField';
-
-const CssTextField = withStyles({
-    root: {
-        '& label.Mui-focused': {
-            color: '#17a2b8',
-        },
-        '& label.Mui-error': {
-            color: 'red',
-        },
-        '& .MuiInput-underline:after': {
-            borderBottomColor: '#17a2b8',
-        },
-        '& .Mui-error:after': {
-            borderBottomColor: 'red !important'
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'red',
-            },
-            '&:hover fieldset': {
-                borderColor: 'yellow',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: '#17a2b8',
-            },
-        },
-    },
-})(TextField)
+import { CssTextField } from '../layout/CssTextField'
 
 const Login = ({ login, isAuthenticated }) => {
     const [formData, setFormData] = useState({
@@ -42,6 +13,45 @@ const Login = ({ login, isAuthenticated }) => {
     })
 
     const { email, password } = formData
+
+    const [errors, setErrors] = useState({})
+    const [hasError, setHasError] = useState(true)
+    const [emailTouched, setEmailTouched] = useState(false)
+    const [passwordTouched, setPasswordTouched] = useState(false)
+
+    const validate = (e) => {
+        if (e.key === 'Tab') {
+            return
+        }
+
+        if (e.target.name === 'email') {
+            setEmailTouched(true)
+        } else if (e.target.name === 'password') {
+            setPasswordTouched(true)
+        }
+
+        let errors = {}
+
+        if (email === '') {
+            errors.email = 'Campo obrigatório'
+        } else if (!(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(email)) {
+            errors.email = 'Email inválido'
+        } else {
+            errors.email = ''
+        }
+
+        if (password === '') {
+            errors.password = 'Campo obrigatório'
+        } else if (password.length < 6) {
+            errors.password = 'Sua senha deve conter no mínimo 6 caracteres'
+        } else {
+            errors.password = ''
+        }
+
+        errors.email === '' && errors.password === '' ? setHasError(false) : setHasError(true)
+
+        setErrors({ ...errors})
+    }
 
     const handleChange = e => 
         setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -60,10 +70,10 @@ const Login = ({ login, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Entrar</h1>
             <p className="lead"><i className="fas fa-user"></i> Acessar Conta</p>
-            <form action="create-profile.html" onSubmit={e => handleSubmit(e)}>
+            <form action="create-profile.html" onSubmit={e => handleSubmit(e)} noValidate>
                 <div className="my-1">
                     <CssTextField 
-                        type="email" 
+                        type="email"
                         label="Email" 
                         name="email"
                         value={email}
@@ -72,8 +82,9 @@ const Login = ({ login, isAuthenticated }) => {
                         fullWidth
                         autoFocus
                         autoComplete="email"
-                        error={email === ""}
-                        helperText={email === "" ? 'Campo obrigatório' : ''}
+                        onBlur={e => validate(e)}
+                        onKeyUp={e => validate(e) }
+                        {...(errors?.email && emailTouched && { error: true, helperText: errors.email })}
                     />
                 </div>
                 <div className="my-1">
@@ -87,9 +98,17 @@ const Login = ({ login, isAuthenticated }) => {
                         required
                         fullWidth
                         autoComplete="current-password"
+                        onBlur={e => validate(e)}
+                        onKeyUp={e => validate(e) }
+                        {...(errors?.password && passwordTouched && { error: true, helperText: errors.password })}
                     />
                 </div>
-                <input type="submit" className="btn btn-primary" value="Entrar" />
+                <input 
+                    type="submit" 
+                    className={hasError || !emailTouched || !passwordTouched ? 'btn-disabled' : 'btn btn-primary'} 
+                    value="Entrar"
+                    {...(hasError && { disabled: true })} 
+                />
             </form>
             <p className="my-1">
                 Não tem uma conta? <Link to="/cadastrar">Cadastrar</Link>
