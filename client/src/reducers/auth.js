@@ -1,7 +1,8 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, DELETE_ACCOUNT } from '../actions/types'
+import { getCookie, setCookie, eraseCookie } from '../utils/cookies'
 
 const initialState = {
-    jwt: sessionStorage.getItem('jwt') || null,
+    jwt: getCookie('jwt') || null,
     isAuthenticated: false,
     loading: true,
     user: null
@@ -20,7 +21,7 @@ export default function authentication(state = initialState, action) {
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
-            sessionStorage.setItem('jwt', payload.jwt)
+            setCookie('jwt', payload.jwt, 3600000)
             return {
                 ...state,
                 ...payload,
@@ -32,7 +33,7 @@ export default function authentication(state = initialState, action) {
         case LOGIN_FAIL:
         case LOGOUT:
         case DELETE_ACCOUNT:
-            sessionStorage.removeItem('jwt')
+            eraseCookie('jwt')
             return {
                 ...state,
                 jwt: null,

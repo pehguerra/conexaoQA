@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { loadUser } from './actions/auth'
 import setAuthToken from './utils/setAuthToken'
+import { getCookie } from './utils/cookies'
 
 import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
@@ -13,8 +14,8 @@ import Routes from './components/routing/Routes'
 
 const App = () =>{
     useEffect(() => {
-        if(sessionStorage.jwt) {
-            setAuthToken(sessionStorage.jwt);
+        if(getCookie('jwt')) {
+            setAuthToken(getCookie('jwt'));
             store.dispatch(loadUser())
         }
     }, [])

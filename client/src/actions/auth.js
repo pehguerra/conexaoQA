@@ -2,11 +2,12 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS
 import axios from 'axios'
 import { setAlert } from './alert'
 import setAuthToken from '../utils/setAuthToken'
+import { getCookie } from '../utils/cookies'
 
 // load user data into redux store inside auth
 export const loadUser = () => async dispatch => {
-    if(sessionStorage.jwt) {
-        setAuthToken(sessionStorage.jwt)
+    if(getCookie('jwt')) {
+        setAuthToken(getCookie('jwt'))
     }
 
     try {
