@@ -68,7 +68,7 @@ const User = require('../../models/User')
  *               $ref: '#/components/schemas/Response - Error'
  */
 router.post('/', [
-    check('name', 'Name é obrigatório')
+    check('name', 'Nome é obrigatório')
         .not()
         .isEmpty(),
     check('email', 'Por favor inclua um email válido')
@@ -110,7 +110,6 @@ router.post('/', [
     
         // encrypt the password
         const salt = await bcrypt.genSalt(10)
-
         user.password = await bcrypt.hash(password, salt)
 
         // saves user

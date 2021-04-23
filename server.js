@@ -21,6 +21,7 @@ app.use('/api/auth', require('./routes/api/auth'))
 app.use('/api/profile', require('./routes/api/profile'))
 app.use('/api/posts', require('./routes/api/posts'))
 
+// Swagger
 const options = {
     definition: {
         openapi: '3.0.0',

@@ -29,7 +29,7 @@ const Login = ({ login, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Entrar</h1>
             <p className="lead"><i className="fas fa-user"></i> Acessar Conta</p>
-            <form className="form" action="create-profile.html" onSubmit={e => handleSubmit(e)}>
+            <form className="form" onSubmit={e => handleSubmit(e)}>
                 <div className="form-group">
                     <input 
                         type="email" 
@@ -51,7 +51,7 @@ const Login = ({ login, isAuthenticated }) => {
                         required
                     />
                 </div>
-                <input type="submit" className="btn btn-primary" value="Entrar" />
+                <input className="btn btn-primary" type="submit"  value="Entrar" />
             </form>
             <p className="my-1">
                 Não tem uma conta? <Link to="/cadastrar">Cadastrar</Link>

@@ -29,13 +29,10 @@ const App = () =>{
                         <Route exact path="/" component={Landing} />
                         <Route component={Routes} />
                     </Switch>
-                    
                 </Fragment>
             </Router>
         </Provider>
     )
 }
-    
-    
 
 export default App;
