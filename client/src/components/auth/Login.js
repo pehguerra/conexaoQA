@@ -1,24 +1,40 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { login } from '../../actions/auth'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+
+import { CssTextField } from '../layout/CssTextField'
+
+const validationSchema = yup.object({
+    email: yup
+        .string('Digite seu email')
+        .email('Digite um email válido')
+        .required('Email é obrigatório'),
+    password: yup
+        .string('Digite sua senha')
+        .min(6, 'A senha deve conter no mínimo 6 caracteres')
+        .required('Senha é obrigatória')
+})
+
 
 const Login = ({ login, isAuthenticated }) => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
+    
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        validationSchema: validationSchema,
+        onSubmit: ({ email, password }) => {
+            login(email, password)
+        }
     })
-
-    const { email, password } = formData
-
-    const handleChange = e => 
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-
-    const handleSubmit = async e => {
-        e.preventDefault()
-        login(email, password)
-    }
+    
+    // const handleChange = e => 
+    //     setFormData({ ...formData, [e.target.name]: e.target.value })
         
     // redirects if logged in
     if(isAuthenticated) {
@@ -29,26 +45,37 @@ const Login = ({ login, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Entrar</h1>
             <p className="lead"><i className="fas fa-user"></i> Acessar Conta</p>
-            <form className="form" onSubmit={e => handleSubmit(e)}>
-                <div className="form-group">
-                    <input 
-                        type="email" 
-                        placeholder="Endereço de Email" 
+            <form className="form-input" onSubmit={formik.handleSubmit} noValidate>
+                <div className="my-1">
+                    <CssTextField 
+                        type="email"
+                        label="Email" 
                         name="email"
-                        value={email}
-                        onChange={e => handleChange(e)}
                         required 
+                        fullWidth
+                        autoFocus
+                        autoComplete="email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                        helperText={formik.touched.email && formik.errors.email}
                     />
                 </div>
-                <div className="form-group">
-                    <input
+                <div className="my-1">
+                    <CssTextField
                         type="password"
-                        placeholder="Senha"
+                        label="Senha"
                         name="password"
-                        value={password}
-                        onChange={e => handleChange(e)}
                         minLength="6"
                         required
+                        fullWidth
+                        autoComplete="current-password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        helperText={formik.touched.password && formik.errors.password}
                     />
                 </div>
                 <input className="btn btn-primary" type="submit"  value="Entrar" />

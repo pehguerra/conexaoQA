@@ -757,11 +757,11 @@ router.put('/experience', [ auth, [
 
     const { title, company, location, from, to, current, description } = req.body
 
-    if ((typeof to !== "undefined" && to !== "") && current === true) {
+    if ((typeof to !== "undefined" && (to !== "" && to !== null)) && current === true) {
         return res.status(400).json({ errors: [{ msg: 'A chave to não pode ser preenchida se a chave current é true' }] })
     }
 
-    if (typeof to === "undefined" && current === false) {
+    if ((typeof to === "undefined" || to === null) && current === false) {
         return res.status(400).json({ errors: [{ msg: 'A chave to precisa ser preenchida se a chave current é false' }] })
     }
 
@@ -931,13 +931,14 @@ router.put('/education', [ auth, [
 
     const { school, degree, fieldofstudy, from, to, current, description } = req.body
 
-    if ((typeof to !== "undefined" && to !== "") && current === true) {
-        return res.status(400).json({ errors: [{ msg: 'A chave to não pode ser preenchida se a chave current é true' }] })
+    if ((typeof to !== "undefined" && (to !== "" && to !== null)) && current === true) {
+        return res.status(400).json({ errors: [{ msg: 'O campo to não pode ser preenchida se o campo current é true' }] })
     }
 
-    if (typeof to === "undefined" && current === false) {
-        return res.status(400).json({ errors: [{ msg: 'A chave to precisa ser preenchida se a chave current é false' }] })
+    if ((typeof to === "undefined" || to === null) && current === false) {
+        return res.status(400).json({ errors: [{ msg: 'O campo to precisa ser preenchida se o campo current é false' }] })
     }
+
 
     // creates new experience
     const newEdu = {

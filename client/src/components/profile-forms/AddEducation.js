@@ -1,26 +1,62 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { addEducation } from '../../actions/profile'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
+import DateFnsUtils from "@date-io/date-fns";
+
+import { CssTextField } from '../layout/CssTextField'
+import { materialTheme } from '../layout/CssDatePicker'
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker
+} from "@material-ui/pickers";
+import { ThemeProvider } from "@material-ui/styles"
+
+
+const validationSchema = yup.object({
+    school: yup
+        .string()
+        .required('Escola é obrigatória'),
+    degree: yup
+        .string()
+        .required('Grau é obrigatório'),
+    fieldofstudy: yup
+        .string()
+        .required('Curso é obrigatório'),
+    current: yup
+        .boolean(),
+    from: yup
+        .date()
+        .required('Início é obrigatório')
+        .nullable(),
+    to: yup
+        .date()
+        .nullable(true)
+        .when('current', {
+            is: false,
+            then: yup.date().required("Até é obrigatório").nullable(true)
+        })
+})
 
 const AddEducation = ({ addEducation, history }) => {
-    const [formData, setFormData] = useState({
-        school: '',
-        degree: '',
-        fieldofstudy: '',
-        from: '',
-        to: '',
-        current: false,
-        description: ''
+    const formik = useFormik({
+        initialValues: {
+            school: '',
+            degree: '',
+            fieldofstudy: '',
+            from: null,
+            current: false,
+            to: null,
+            description: ''
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            addEducation(values, history)
+        }
     })
-
-    const [toDateDisabled, toggleDisabled] = useState(false)
-
-    const { school, degree, fieldofstudy, from, to, current, description } = formData
-
-    const handleChange = e => 
-        setFormData({ ...formData, [e.target.name]: e.target.value })
 
     return (
         <Fragment>
@@ -31,42 +67,118 @@ const AddEducation = ({ addEducation, history }) => {
                 <i className="fas fa-code-branch"></i> Adicione suas formações acadêmicas para turbinar seu perfil
             </p>
             <small>* = campos obrigatórios</small>
-            <form className="form" onSubmit={e => {
-                e.preventDefault()
-                addEducation(formData, history)
-            }}>
-                <div className="form-group">
-                    <input type="text" placeholder="* Escola" name="school" value={school} onChange={e => handleChange(e)} required />
+            
+            <form className="form-input" onSubmit={formik.handleSubmit} noValidate>
+                <div className="my-1">
+                    <CssTextField 
+                        type="text"
+                        label="Escola" 
+                        name="school"
+                        fullWidth
+                        autoComplete="school"
+                        required
+                        autoFocus
+                        value={formik.values.school}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.school && Boolean(formik.errors.school)}
+                        helperText={formik.touched.school && formik.errors.school}
+                    />
                 </div>
-                <div className="form-group">
-                    <input type="text" placeholder="* Grau" name="degree" value={degree} onChange={e => handleChange(e)} required />
+                <div className="my-1">
+                    <CssTextField 
+                        type="text"
+                        label="Grau" 
+                        name="degree"
+                        fullWidth
+                        autoComplete="degree"
+                        required
+                        value={formik.values.degree}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.degree && Boolean(formik.errors.degree)}
+                        helperText={formik.touched.degree && formik.errors.degree}
+                    />
                 </div>
-                <div className="form-group">
-                    <input type="text" placeholder="* Curso" name="fieldofstudy" value={fieldofstudy} onChange={e => handleChange(e)} />
+                <div className="my-1">
+                    <CssTextField 
+                        type="text"
+                        label="Curso" 
+                        name="fieldofstudy"
+                        fullWidth
+                        autoComplete="fieldofstudy"
+                        required
+                        value={formik.values.fieldofstudy}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.fieldofstudy && Boolean(formik.errors.fieldofstudy)}
+                        helperText={formik.touched.fieldofstudy && formik.errors.fieldofstudy}
+                    />
                 </div>
-                <div className="form-group">
-                    <h4>Início</h4>
-                    <input type="date" name="from" value={from} onChange={e => handleChange(e)} />
+                <div className="my-1">
+                    <h4>Início *</h4>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <ThemeProvider theme={materialTheme}>
+                            <KeyboardDatePicker
+                                id="from"
+                                label="dd/MM/aaaa"
+                                format="dd/MM/yyyy"
+                                value={formik.values.from}
+                                onChange={e => formik.setFieldValue("from", e)}
+                                error={formik.touched.from && Boolean(formik.errors.from)}
+                                helperText={formik.touched.from && formik.errors.from}
+                                KeyboardButtonProps={{
+                                    "aria-label": "change date"
+                                }}
+                                autoOk
+                            />
+                        </ThemeProvider>
+                    </MuiPickersUtilsProvider>
                 </div>
-                <div className="form-group">
-                    <p><input type="checkbox" name="current" checked={current} value={current} onChange={e => {
-                        setFormData({ ...formData, current: !current })
-                        toggleDisabled(!toDateDisabled)
-                        }} /> {' '}Cursando</p>
+                <div className="my-1">
+                    <p>
+                        <input 
+                            type="checkbox" 
+                            name="current" 
+                            checked={formik.values.current} 
+                            value={formik.values.current} 
+                            onChange={formik.handleChange} 
+                        /> 
+                        {' '}Cursando
+                    </p>
                 </div>
-                <div className="form-group">
-                    <h4>Até</h4>
-                    <input type="date" name="to" value={to} onChange={e => handleChange(e)} disabled={toDateDisabled ? 'disabled' : ''} />
+                <div className="my-1">
+                    <h4>{formik.values.current ? 'Até' : 'Até *'}</h4>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <ThemeProvider theme={materialTheme}>
+                            <KeyboardDatePicker
+                                id="to"
+                                label="dd/MM/aaaa"
+                                format="dd/MM/yyyy"
+                                disabled={formik.values.current ? true : false}
+                                value={formik.values.to}
+                                onChange={e => formik.setFieldValue("to", e)}
+                                error={formik.touched.to && Boolean(formik.errors.to)}
+                                helperText={formik.touched.to && formik.errors.to}
+                                KeyboardButtonProps={{
+                                    "aria-label": "change date"
+                                }}
+                                autoOk
+                            />
+                        </ThemeProvider>
+                    </MuiPickersUtilsProvider>
                 </div>
-                <div className="form-group">
-                    <textarea
+                <div className="my-1">
+                    <CssTextField 
+                        type="text"
+                        label="Descrição da formação" 
                         name="description"
-                        cols="30"
-                        rows="5"
-                        placeholder="Descrição da formação"
-                        value={description} 
-                        onChange={e => handleChange(e)}
-                    ></textarea>
+                        fullWidth
+                        multiline
+                        autoComplete="description"
+                        value={formik.values.description}
+                        onChange={formik.handleChange}
+                    />
                 </div>
                 <input type="submit" className="btn btn-primary my-1" value="Adicionar Formação" />
                 <Link className="btn btn-light my-1" to="/dashboard">Retornar</Link>

@@ -1,31 +1,46 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { setAlert } from '../../actions/alert'
 import { register } from '../../actions/auth'
 import PropTypes from 'prop-types'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        password2: ''
-    })
+import { CssTextField } from '../layout/CssTextField'
 
-    const { name, email, password, password2 } = formData
+const validationSchema = yup.object({
+    name: yup
+        .string('Digite seu nome')
+        .required('Email é obrigatório'),
+    email: yup
+        .string('Digite seu email')
+        .email('Digite um email válido')
+        .required('Email é obrigatório'),
+    password: yup
+        .string('Digite sua senha')
+        .min(6, 'A senha deve conter no mínimo 6 caracteres')
+        .required('Senha é obrigatória'),
+    password2: yup
+        .string('Confirme a senha digitada')
+        .min(6, 'A senha deve conter no mínimo 6 caracteres')
+        .required('Confirmar senha é obrigatória')
+        .oneOf([yup.ref("password")], "Senhas precisam ser idênticas")
+})
 
-    const handleChange = e => 
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-
-    const handleSubmit = async e => {
-        e.preventDefault()
-        if(password !== password2) {
-            setAlert('Senhas precisam ser idênticas', 'danger', 10000)
-        } else {
+const Register = ({ register, isAuthenticated }) => {
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            password: '',
+            password2: ''
+        },
+        validationSchema: validationSchema,
+        onSubmit: ({ name, email, password }) => {
             register({ name, email, password })
         }
-    }
+    })
 
     // redirects if logged in
     if(isAuthenticated) {
@@ -36,56 +51,75 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <Fragment>
             <h1 className="large text-primary">Cadastrar</h1>
             <p className="lead"><i className="fas fa-user"></i> Criar Sua Conta</p>
-            <form className="form" onSubmit={e => handleSubmit(e)}>
-                <div className="form-group">
-                    <input 
+            <form className="form-input" onSubmit={formik.handleSubmit} noValidate>
+                <div className="my-1">
+                    <CssTextField
                         type="text" 
-                        placeholder="Nome" 
+                        label="Nome"
                         name="name" 
-                        value={name} 
-                        onChange={e => handleChange(e)}
                         required
+                        fullWidth
+                        autoFocus
+                        autoComplete="name"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.name && Boolean(formik.errors.name)}
+                        helperText={formik.touched.name && formik.errors.name}
                     />
                 </div>
-                <div className="form-group">
-                    <input 
+                <div className="my-1">
+                    <CssTextField 
                         type="email" 
-                        placeholder="Endereço de Email" 
+                        label="Email" 
                         name="email"
-                        value={email}
-                        onChange={e => handleChange(e)}
                         required
+                        fullWidth
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                        helperText={formik.touched.email && formik.errors.email}
                     />
                     <small className="form-text">
                         Este site usa Gravatar, então caso queira uma imagem para o perfil, user o email Gravatar
                     </small>
                 </div>
-                <div className="form-group">
-                    <input
+                <div className="my-1">
+                    <CssTextField
                         type="password"
-                        placeholder="Senha"
+                        label="Senha"
                         name="password"
-                        value={password}
-                        onChange={e => handleChange(e)}
-                        minLength='6'
+                        minLength="6"
                         required
+                        fullWidth
+                        autoComplete="new-password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        helperText={formik.touched.password && formik.errors.password}
                     />
                 </div>
-                <div className="form-group">
-                    <input
+                <div className="my-1">
+                    <CssTextField
                         type="password"
-                        placeholder="Confirmar Senha"
+                        label="Confirmar Senha"
                         name="password2"
-                        value={password2}
-                        onChange={e => handleChange(e)}
-                        minLength='6'
+                        minLength="6"
                         required
+                        fullWidth
+                        value={formik.values.password2}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password2 && Boolean(formik.errors.password2)}
+                        helperText={formik.touched.password2 && formik.errors.password2}
                     />
                 </div>
                 <input type="submit" className="btn btn-primary" value="Cadastrar" />
             </form>
             <p className="my-1">
-                Já tem uma conta? <Link to="/login">Login</Link>
+                Já tem uma conta? <Link to="/login">Entrar</Link>
             </p>
         </Fragment>
     )
