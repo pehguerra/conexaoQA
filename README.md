@@ -55,7 +55,7 @@ Navegar para pasta client e instalar as dependências do front-end:
 
 ```sh
 cd client
-npm install
+npm install --legacy-peer-deps
 ```
 
 Dentro do projeto, criar as variáveis de ambiente:
