@@ -16,7 +16,8 @@ const validationSchema = yup.object({
     status: yup
         .string()
         .required('Status é obrigatório')
-        .oneOf(['Estudante ou Aprendendo', 'QA Junior', 'QA Pleno'], 'Status é obrigatório'),
+        .oneOf(['Estudante ou Aprendendo', 'QA Junior', 'QA Pleno', 'QA Senior', 'QAE Junior', 'QAE Pleno', 'QAE Senior', 'Especialista em QA', 
+            'Gerente de Testes', 'Professor ou Instrutor', 'Outro'], 'Status é obrigatório'),
     website: yup
         .string()
         .url('Digite uma url válida'),
@@ -70,6 +71,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
 
     useEffect(() => {
         getCurrentProfile()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -83,34 +85,34 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
             <small>* = campos obrigatórios</small>
             <form className="form-input" onSubmit={formik.handleSubmit} noValidate>
                 <div className="my-1">
-                        <InputLabel 
-                            id="status" 
-                            required 
-                            error={formik.touched.status && Boolean(formik.errors.status)}
-                            helperText={formik.touched.status && formik.errors.status}
-                        >Status
-                        </InputLabel>
-                        <CssSelect
-                            labelId="status"
-                            name="status"
-                            fullWidth
-                            value={formik.values.status}
-                            onChange={formik.handleChange}
-                            error={formik.touched.status && Boolean(formik.errors.status)}
-                            helperText={formik.touched.status && formik.errors.status}
-                        >
-                            <MenuItem value={'Estudante ou Aprendendo'}>Estudante ou Aprendendo</MenuItem>
-                            <MenuItem value={'QA Junior'}>QA Júnior</MenuItem>
-                            <MenuItem value={'QA Pleno'}>QA Pleno</MenuItem>
-                            <MenuItem value={'QA Senior'}>QA Sênior</MenuItem>
-                            <MenuItem value={'QAE Junior'}>QAE Júnior</MenuItem>
-                            <MenuItem value={'QAE Pleno'}>QAE Pleno</MenuItem>
-                            <MenuItem value={'QAE Senior'}>QAE Sênior</MenuItem>
-                            <MenuItem value={'Especialista em QA'}>Especialista em QA</MenuItem>
-                            <MenuItem value={'Gerente de Testes'}>Gerente de Testes</MenuItem>
-                            <MenuItem value={'Professor ou Instrutor'}>Professor ou Instrutor</MenuItem>
-                            <MenuItem value={'Outro'}>Outro</MenuItem>
-                        </CssSelect>
+                    <InputLabel 
+                        id="status" 
+                        required 
+                        error={formik.touched.status && Boolean(formik.errors.status)}
+                        helperText={formik.touched.status && formik.errors.status}
+                    >Status
+                    </InputLabel>
+                    <CssSelect
+                        labelId="status"
+                        name="status"
+                        fullWidth
+                        value={formik.values.status}
+                        onChange={formik.handleChange}
+                        error={formik.touched.status && Boolean(formik.errors.status)}
+                        helperText={formik.touched.status && formik.errors.status}
+                    >
+                        <MenuItem value={'Estudante ou Aprendendo'}>Estudante ou Aprendendo</MenuItem>
+                        <MenuItem value={'QA Junior'}>QA Júnior</MenuItem>
+                        <MenuItem value={'QA Pleno'}>QA Pleno</MenuItem>
+                        <MenuItem value={'QA Senior'}>QA Sênior</MenuItem>
+                        <MenuItem value={'QAE Junior'}>QAE Júnior</MenuItem>
+                        <MenuItem value={'QAE Pleno'}>QAE Pleno</MenuItem>
+                        <MenuItem value={'QAE Senior'}>QAE Sênior</MenuItem>
+                        <MenuItem value={'Especialista em QA'}>Especialista em QA</MenuItem>
+                        <MenuItem value={'Gerente de Testes'}>Gerente de Testes</MenuItem>
+                        <MenuItem value={'Professor ou Instrutor'}>Professor ou Instrutor</MenuItem>
+                        <MenuItem value={'Outro'}>Outro</MenuItem>
+                    </CssSelect>
                     <small className="form-text">Nos dê uma ideia de onde você está em sua carreira</small>
                 </div>
                 <div className="my-1">

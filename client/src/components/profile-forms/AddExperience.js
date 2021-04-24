@@ -8,6 +8,8 @@ import * as yup from 'yup'
 import DateFnsUtils from "@date-io/date-fns";
 
 import { CssTextField } from '../layout/CssTextField'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 import { materialTheme } from '../layout/CssDatePicker'
 import {
     MuiPickersUtilsProvider,
@@ -131,14 +133,23 @@ const AddExperience = ({ addExperience, history }) => {
                 </div>
                 <div className="my-1">
                     <p>
-                        <input 
-                            type="checkbox" 
-                            name="current" 
-                            checked={formik.values.current} 
-                            value={formik.values.current} 
-                            onChange={formik.handleChange} 
-                        /> 
-                        {' '}Cursando
+                        <FormControlLabel 
+                            control={
+                                <Checkbox 
+                                    size="small"
+                                    name="current" 
+                                    label="AAAAAAAA"
+                                    checked={formik.values.current} 
+                                    value={formik.values.current} 
+                                    onChange={formik.handleChange} 
+                                    disableRipple
+                                    style ={{
+                                        color: "#17a2b8",
+                                    }}
+                                /> 
+                            }
+                            label="Atual"
+                        />
                     </p>
                 </div>
                 <div className="my-1">

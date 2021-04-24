@@ -8,12 +8,14 @@ import * as yup from 'yup'
 import DateFnsUtils from "@date-io/date-fns";
 
 import { CssTextField } from '../layout/CssTextField'
-import { materialTheme } from '../layout/CssDatePicker'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker
 } from "@material-ui/pickers";
 import { ThemeProvider } from "@material-ui/styles"
+import { materialTheme } from '../layout/CssDatePicker'
 
 
 const validationSchema = yup.object({
@@ -137,14 +139,23 @@ const AddEducation = ({ addEducation, history }) => {
                 </div>
                 <div className="my-1">
                     <p>
-                        <input 
-                            type="checkbox" 
-                            name="current" 
-                            checked={formik.values.current} 
-                            value={formik.values.current} 
-                            onChange={formik.handleChange} 
-                        /> 
-                        {' '}Cursando
+                        <FormControlLabel 
+                            control={
+                                <Checkbox 
+                                    size="small"
+                                    name="current" 
+                                    label="AAAAAAAA"
+                                    checked={formik.values.current} 
+                                    value={formik.values.current} 
+                                    onChange={formik.handleChange} 
+                                    disableRipple
+                                    style ={{
+                                        color: "#17a2b8",
+                                    }}
+                                /> 
+                            }
+                            label="Cursando"
+                        />
                     </p>
                 </div>
                 <div className="my-1">

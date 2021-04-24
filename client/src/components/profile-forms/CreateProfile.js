@@ -16,7 +16,8 @@ const validationSchema = yup.object({
     status: yup
         .string()
         .required('Status é obrigatório')
-        .oneOf(['Estudante ou Aprendendo', 'QA Junior', 'QA Pleno'], 'Status é obrigatório'),
+        .oneOf(['Estudante ou Aprendendo', 'QA Junior', 'QA Pleno', 'QA Senior', 'QAE Junior', 'QAE Pleno', 'QAE Senior', 'Especialista em QA', 
+            'Gerente de Testes', 'Professor ou Instrutor', 'Outro'], 'Status é obrigatório'),
     website: yup
         .string()
         .url('Digite uma url válida'),
