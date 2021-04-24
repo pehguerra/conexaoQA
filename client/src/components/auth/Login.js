@@ -53,7 +53,6 @@ const Login = ({ login, isAuthenticated }) => {
                         name="email"
                         required 
                         fullWidth
-                        autoFocus
                         autoComplete="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}

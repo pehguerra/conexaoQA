@@ -79,7 +79,6 @@ const AddEducation = ({ addEducation, history }) => {
                         fullWidth
                         autoComplete="school"
                         required
-                        autoFocus
                         value={formik.values.school}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}

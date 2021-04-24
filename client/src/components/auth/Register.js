@@ -59,7 +59,6 @@ const Register = ({ register, isAuthenticated }) => {
                         name="name" 
                         required
                         fullWidth
-                        autoFocus
                         autoComplete="name"
                         value={formik.values.name}
                         onChange={formik.handleChange}

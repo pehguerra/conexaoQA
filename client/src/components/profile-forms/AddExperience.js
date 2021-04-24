@@ -74,7 +74,6 @@ const AddExperience = ({ addExperience, history }) => {
                         fullWidth
                         autoComplete="title"
                         required
-                        autoFocus
                         value={formik.values.title}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
