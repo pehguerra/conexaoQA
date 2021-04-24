@@ -13,18 +13,7 @@ export const CssTextField = withStyles({
             borderBottomColor: '#17a2b8',
         },
         '& .Mui-error:after': {
-            borderBottomColor: 'red !important'
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'red',
-            },
-            '&:hover fieldset': {
-                borderColor: 'yellow',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: '#17a2b8',
-            },
-        },
+            borderBottomColor: 'red'
+        }
     }
 })(TextField)

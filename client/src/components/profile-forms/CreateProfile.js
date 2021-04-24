@@ -4,143 +4,69 @@ import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import { createProfile } from '../../actions/profile'
 import Grid from '@material-ui/core/Grid'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
 
 import { CssTextField } from '../layout/CssTextField'
-// import { CssSelect } from '../layout/CssSelect'
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
+import { CssSelect } from '../layout/CssSelect'
+import MenuItem from '@material-ui/core/MenuItem'
+import InputLabel from '@material-ui/core/InputLabel'
 
+const validationSchema = yup.object({
+    status: yup
+        .string()
+        .required('Status é obrigatório')
+        .oneOf(['Estudante ou Aprendendo', 'QA Junior', 'QA Pleno'], 'Status é obrigatório'),
+    website: yup
+        .string()
+        .url('Digite uma url válida'),
+    skills: yup
+        .string()
+        .required('Conhecimentos é obrigatório'),
+    twitter: yup
+        .string()
+        .url('Digite uma url válida'),
+    facebook: yup
+        .string()
+        .url('Digite uma url válida'),
+    linkedin: yup
+        .string()
+        .url('Digite uma url válida'),
+    youtube: yup
+        .string()
+        .url('Digite uma url válida'),
+    instagram: yup
+        .string()
+        .url('Digite uma url válida'),
+    medium: yup
+        .string()
+        .url('Digite uma url válida'),
+})
 
-const CreateProfile = ({ createProfile, history }) => {
-    const [formData, setFormData] = useState({
-        company: '',
-        website: '',
-        location: '',
-        status: '',
-        skills: '',
-        githubusername: '',
-        bio: '',
-        twitter: '',
-        facebook: '',
-        linkedin: '',
-        youtube: '',
-        instagram: '',
-        medium: ''
-    })
-
-    const { company, website, location, status, skills, githubusername, bio, twitter, facebook, linkedin, youtube, instagram, medium } = formData
-    
+const CreateProfile = ({ createProfile, history }) => {    
     const [displaySocialInputs, toogleSocialInputs] = useState(false)
 
-    const [errors, setErrors] = useState({})
-    const [hasError, setHasError] = useState(true)
-    const [statusTouched, setStatusTouched] = useState(false)
-    const [skillsTouched, setSkillsTouched] = useState(false)
-    const [locationTouched, setLocationTouched] = useState(false)
-    const [twitterTouched, setTwitterTouched] = useState(false)
-    const [facebookTouched, setFacebookTouched] = useState(false)
-    const [linkedinTouched, setLinkedinTouched] = useState(false)
-    const [youtubeTouched, setYoutubeTouched] = useState(false)
-    const [instagramTouched, setInstagramTouched] = useState(false)
-    const [mediumTouched, setMediumTouched] = useState(false)
-
-    const URL_REGEX = /^((ftp|http|https):\/\/)?([A-z]+)\.([A-z]{2,})/
-
-    const validate = (e) => {
-        if (e.key === 'Tab') {
-            return
+    const formik = useFormik({
+        initialValues: {
+            status: '',
+            company: '',
+            website: '',
+            location: '',
+            skills: '',
+            githubusername: '',
+            bio: '',
+            twitter: '',
+            facebook: '',
+            linkedin: '',
+            youtube: '',
+            instagram: '',
+            medium: ''
+        },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            createProfile(values, history)
         }
-
-        if (e.target.name === 'status') {
-            setStatusTouched(true)
-        } else if (e.target.name === 'skills') {
-            setSkillsTouched(true)
-        } else if (e.target.name === 'location') {
-            setLocationTouched(true)
-        } else if (e.target.name === 'twitter') {
-            setTwitterTouched(true)
-        } else if (e.target.name === 'facebook') {
-            setFacebookTouched(true)
-        } else if (e.target.name === 'linkedin') {
-            setLinkedinTouched(true)
-        } else if (e.target.name === 'youtube') {
-            setYoutubeTouched(true)
-        } else if (e.target.name === 'instagram') {
-            setInstagramTouched(true)
-        } else if (e.target.name === 'medium') {
-            setMediumTouched(true)
-        }
-
-        let errors = {}
-
-        if (status === '') {
-            errors.status = 'Campo obrigatório'
-        } else {
-            errors.status = ''
-        }
-
-        if (skills === '') {
-            errors.skills = 'Campo obrigatório'
-        } else {
-            errors.skills = ''
-        }
-
-        if (!(/^.*[,].*$/).test(location) && location !== '') {
-            errors.location = 'Digita a cidade e o estado separados por vírgula'
-        } else {
-            errors.location = ''
-        }
-
-        if (!(URL_REGEX).test(twitter) && twitter !== '') {
-            errors.twitter = 'URL inválida'
-        } else {
-            errors.twitter = ''
-        }
-
-        if (!(URL_REGEX).test(facebook) && facebook !== '') {
-            errors.facebook = 'URL inválida'
-        } else {
-            errors.facebook = ''
-        }
-
-        if (!(URL_REGEX).test(youtube) && youtube !== '') {
-            errors.youtube = 'URL inválida'
-        } else {
-            errors.youtube = ''
-        }
-
-        if (!(URL_REGEX).test(linkedin) && linkedin !== '') {
-            errors.linkedin = 'URL inválida'
-        } else {
-            errors.linkedin = ''
-        }
-
-        if (!(URL_REGEX).test(instagram) && instagram !== '') {
-            errors.instagram = 'URL inválida'
-        } else {
-            errors.instagram = ''
-        }
-
-        if (!(URL_REGEX).test(medium) && medium !== '') {
-            errors.medium = 'URL inválida'
-        } else {
-            errors.medium = ''
-        }
-
-        errors.status === '' && errors.skills === '' && errors.location === '' && errors.twitter === '' 
-        && errors.facebook === '' && errors.youtube === '' && errors.linkedin === '' && errors.instagram === ''
-        && errors.medium === '' ? setHasError(false) : setHasError(true)
-
-        setErrors({ ...errors})
-    }
-
-    const handleChange = e => 
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        createProfile(formData, history)
-    }
+    })
 
     return (
         <Fragment>
@@ -151,34 +77,36 @@ const CreateProfile = ({ createProfile, history }) => {
                 <i className="fas fa-user"></i> Vamos coletar algumas informações para fazer seu perfil se destacar
             </p>
             <small>* = campos obrigatórios</small>
-            <form className="form-input" onSubmit={e => handleSubmit(e)} noValidate>
+            <form className="form-input" onSubmit={formik.handleSubmit} noValidate>
                 <div className="my-1">
-                        {/* <InputLabel required>Status</InputLabel>
+                        <InputLabel 
+                            id="status" 
+                            required 
+                            error={formik.touched.status && Boolean(formik.errors.status)}
+                            helperText={formik.touched.status && formik.errors.status}
+                        >Status
+                        </InputLabel>
                         <CssSelect
-                            label="Status"
+                            labelId="status"
                             name="status"
-                            value={status}
                             fullWidth
-                            onChange={e => handleChange(e)}
-                            onBlur={e => validate(e)}
-                            {...(errors?.status && statusTouched && { error: true })}
+                            value={formik.values.status}
+                            onChange={formik.handleChange}
+                            error={formik.touched.status && Boolean(formik.errors.status)}
+                            helperText={formik.touched.status && formik.errors.status}
                         >
                             <MenuItem value={'Estudante ou Aprendendo'}>Estudante ou Aprendendo</MenuItem>
-                            <MenuItem value={'QA Junior'}>QA Junior</MenuItem>
+                            <MenuItem value={'QA Junior'}>QA Júnior</MenuItem>
                             <MenuItem value={'QA Pleno'}>QA Pleno</MenuItem>
-                        </CssSelect> */}
-                        <CssTextField 
-                            type="text"
-                            label="Status" 
-                            name="status"
-                            value={status}
-                            onChange={e => handleChange(e)}
-                            fullWidth
-                            autoComplete="status"
-                            onBlur={e => validate(e)}
-                            onKeyUp={e => validate(e) }
-                            {...(errors?.status && statusTouched && { error: true, helperText: errors.status })}
-                        />
+                            <MenuItem value={'QA Senior'}>QA Sênior</MenuItem>
+                            <MenuItem value={'QAE Junior'}>QAE Júnior</MenuItem>
+                            <MenuItem value={'QAE Pleno'}>QAE Pleno</MenuItem>
+                            <MenuItem value={'QAE Senior'}>QAE Sênior</MenuItem>
+                            <MenuItem value={'Especialista em QA'}>Especialista em QA</MenuItem>
+                            <MenuItem value={'Gerente de Testes'}>Gerente de Testes</MenuItem>
+                            <MenuItem value={'Professor ou Instrutor'}>Professor ou Instrutor</MenuItem>
+                            <MenuItem value={'Outro'}>Outro</MenuItem>
+                        </CssSelect>
                     <small className="form-text">Nos dê uma ideia de onde você está em sua carreira</small>
                 </div>
                 <div className="my-1">
@@ -186,10 +114,10 @@ const CreateProfile = ({ createProfile, history }) => {
                         type="text"
                         label="Empresa" 
                         name="company"
-                        value={company}
-                        onChange={e => handleChange(e)}
                         fullWidth
                         autoComplete="company"
+                        value={formik.values.company}
+                        onChange={formik.handleChange}
                     />
                     <small className="form-text">Pode ser sua própria empresa ou uma para a qual você trabalha</small>
                 </div>
@@ -198,10 +126,13 @@ const CreateProfile = ({ createProfile, history }) => {
                         type="text"
                         label="Website" 
                         name="website"
-                        value={website}
-                        onChange={e => handleChange(e)}
                         fullWidth
                         autoComplete="website"
+                        value={formik.values.website}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.website && Boolean(formik.errors.website)}
+                        helperText={formik.touched.website && formik.errors.website}
                     />
                     <small className="form-text">Pode ser o seu próprio site ou de alguma empresa</small>
                 </div>
@@ -210,13 +141,10 @@ const CreateProfile = ({ createProfile, history }) => {
                         type="text"
                         label="Localização" 
                         name="location"
-                        value={location}
-                        onChange={e => handleChange(e)}
                         fullWidth
                         autoComplete="location"
-                        onBlur={e => validate(e)}
-                        onKeyUp={e => validate(e) }
-                        {...(errors?.location && locationTouched && { error: true, helperText: errors.location })}
+                        value={formik.values.location}
+                        onChange={formik.handleChange}
                     />
                     <small className="form-text">Cidade e estado (ex. Sorocaba, SP)</small>
                 </div>
@@ -225,14 +153,14 @@ const CreateProfile = ({ createProfile, history }) => {
                         type="text"
                         label="Conhecimentos" 
                         name="skills"
-                        value={skills}
-                        onChange={e => handleChange(e)}
                         required 
                         fullWidth
                         autoComplete="skills"
-                        onBlur={e => validate(e)}
-                        onKeyUp={e => validate(e) }
-                        {...(errors?.skills && skillsTouched && { error: true, helperText: errors.skills })}
+                        value={formik.values.skills}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.skills && Boolean(formik.errors.skills)}
+                        helperText={formik.touched.skills && formik.errors.skills}
                     />
                     <small className="form-text">Use vírgula para separar os valores por favor (ex. Testes de Integração, Automação de Testes, Cypress, Testes Manuais)</small>
                 </div>
@@ -241,10 +169,10 @@ const CreateProfile = ({ createProfile, history }) => {
                         type="text"
                         label="Usuário GitHub" 
                         name="githubusername"
-                        value={githubusername}
-                        onChange={e => handleChange(e)}
                         fullWidth
                         autoComplete="githubusername"
+                        value={formik.values.githubusername}
+                        onChange={formik.handleChange}
                     />
                     <small className="form-text">Se você quiser seus exibir seus repositórios mais recentes e um link para o GitHub, inclua seu nome de usuário</small>
                 </div>
@@ -253,11 +181,11 @@ const CreateProfile = ({ createProfile, history }) => {
                         type="text"
                         label="Uma pequena biografia sobre você" 
                         name="bio"
-                        value={bio}
-                        onChange={e => handleChange(e)}
                         multiline
                         fullWidth
                         autoComplete="bio"
+                        value={formik.values.bio}
+                        onChange={formik.handleChange}
                     />
                     <small className="form-text">Conte-nos um pouco sobre você</small>
                 </div>
@@ -280,13 +208,13 @@ const CreateProfile = ({ createProfile, history }) => {
                                     type="text"
                                     label="Twitter URL" 
                                     name="twitter"
-                                    value={twitter}
-                                    onChange={e => handleChange(e)}
                                     fullWidth
                                     autoComplete="twitter"
-                                    onBlur={e => validate(e)}
-                                    onKeyUp={e => validate(e) }
-                                    {...(errors?.twitter && twitterTouched && { error: true, helperText: errors.twitter })}
+                                    value={formik.values.twitter}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.twitter && Boolean(formik.errors.twitter)}
+                                    helperText={formik.touched.twitter && formik.errors.twitter}
                                 />
                             </Grid>
                         </Grid>
@@ -302,13 +230,13 @@ const CreateProfile = ({ createProfile, history }) => {
                                     type="text"
                                     label="Facebook URL" 
                                     name="facebook"
-                                    value={facebook}
-                                    onChange={e => handleChange(e)}
                                     fullWidth
                                     autoComplete="facebook"
-                                    onBlur={e => validate(e)}
-                                    onKeyUp={e => validate(e) }
-                                    {...(errors?.facebook && facebookTouched && { error: true, helperText: errors.facebook })}
+                                    value={formik.values.facebook}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.facebook && Boolean(formik.errors.facebook)}
+                                    helperText={formik.touched.facebook && formik.errors.facebook}
                                 />
                             </Grid>
                         </Grid>
@@ -324,13 +252,13 @@ const CreateProfile = ({ createProfile, history }) => {
                                     type="text"
                                     label="YouTube URL" 
                                     name="youtube"
-                                    value={youtube}
-                                    onChange={e => handleChange(e)}
                                     fullWidth
                                     autoComplete="youtube"
-                                    onBlur={e => validate(e)}
-                                    onKeyUp={e => validate(e) }
-                                    {...(errors?.youtube && youtubeTouched && { error: true, helperText: errors.youtube })}
+                                    value={formik.values.youtube}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.youtube && Boolean(formik.errors.youtube)}
+                                    helperText={formik.touched.youtube && formik.errors.youtube}
                                 />
                             </Grid>
                         </Grid>
@@ -346,13 +274,13 @@ const CreateProfile = ({ createProfile, history }) => {
                                     type="text"
                                     label="Linkedin URL" 
                                     name="linkedin"
-                                    value={linkedin}
-                                    onChange={e => handleChange(e)}
                                     fullWidth
                                     autoComplete="linkedin"
-                                    onBlur={e => validate(e)}
-                                    onKeyUp={e => validate(e) }
-                                    {...(errors?.linkedin && linkedinTouched && { error: true, helperText: errors.linkedin })}
+                                    value={formik.values.linkedin}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.linkedin && Boolean(formik.errors.linkedin)}
+                                    helperText={formik.touched.linkedin && formik.errors.linkedin}
                                 />
                             </Grid>
                         </Grid>
@@ -368,13 +296,13 @@ const CreateProfile = ({ createProfile, history }) => {
                                     type="text"
                                     label="Instagram URL" 
                                     name="instagram"
-                                    value={instagram}
-                                    onChange={e => handleChange(e)}
                                     fullWidth
                                     autoComplete="instagram"
-                                    onBlur={e => validate(e)}
-                                    onKeyUp={e => validate(e) }
-                                    {...(errors?.instagram && instagramTouched && { error: true, helperText: errors.instagram })}
+                                    value={formik.values.instagram}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.instagram && Boolean(formik.errors.instagram)}
+                                    helperText={formik.touched.instagram && formik.errors.instagram}
                                 />
                             </Grid>
                         </Grid>
@@ -390,25 +318,19 @@ const CreateProfile = ({ createProfile, history }) => {
                                     type="text"
                                     label="Medium URL" 
                                     name="medium"
-                                    value={medium}
-                                    onChange={e => handleChange(e)}
                                     fullWidth
                                     autoComplete="medium"
-                                    onBlur={e => validate(e)}
-                                    onKeyUp={e => validate(e) }
-                                    {...(errors?.medium && mediumTouched && { error: true, helperText: errors.medium })}
+                                    value={formik.values.medium}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    error={formik.touched.medium && Boolean(formik.errors.medium)}
+                                    helperText={formik.touched.medium && formik.errors.medium}
                                 />
                             </Grid>
                         </Grid>
                     </div>
                 </Fragment>}
-                <input 
-                    type="submit" 
-                    className={hasError || !statusTouched || !skillsTouched || locationTouched || twitterTouched || facebookTouched
-                        || linkedinTouched || youtubeTouched || instagramTouched || mediumTouched ? 'btn-disabled' : 'btn btn-primary'} 
-                    value="Criar Perfil" 
-                    {...(hasError && { disabled: true })} 
-                />
+                <input type="submit" className="btn btn-primary" value="Criar Perfil" />
                 <Link className="btn btn-light my-1" to="/dashboard">Dashboard</Link>
             </form>
         </Fragment>

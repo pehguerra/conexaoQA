@@ -3,9 +3,9 @@ import { withStyles } from '@material-ui/core/styles'
 import Select from '@material-ui/core/Select';
 
 export const CssSelect = withStyles({
-    select: {
+    root: {
         '& .MuiInput-underline:after': {
-            borderBottom: `2px solid '#17a2b8' !important`,
+            borderBottomColor: '#17a2b8'
         }
     },
     icon: {
