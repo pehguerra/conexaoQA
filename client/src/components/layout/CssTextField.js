@@ -1,16 +1,17 @@
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import { primaryColor } from '../../utils/fieldColors'
 
 export const CssTextField = withStyles({
     root: {
         '& label.Mui-focused': {
-            color: '#17a2b8',
+            color: primaryColor,
         },
         '& label.Mui-error': {
             color: 'red',
         },
         '& .MuiInput-underline:after': {
-            borderBottomColor: '#17a2b8',
+            borderBottomColor: primaryColor,
         },
         '& .Mui-error:after': {
             borderBottomColor: 'red'

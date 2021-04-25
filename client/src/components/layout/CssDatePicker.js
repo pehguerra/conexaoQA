@@ -1,14 +1,15 @@
 import { createMuiTheme } from "@material-ui/core"
+import { primaryColor } from '../../utils/fieldColors'
 
 export const materialTheme = createMuiTheme({
     palette: {
         primary: {
-            main: '#17a2b8',
-            light: '#17a2b8',
-            dark: '#17a2b8',
+            main: primaryColor,
+            light: primaryColor,
+            dark: primaryColor,
         },
         secondary: {
-            main: '#17a2b8',
+            main: primaryColor,
         },
     },
     overrides: {

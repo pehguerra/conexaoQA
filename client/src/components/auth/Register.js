@@ -118,7 +118,7 @@ const Register = ({ register, isAuthenticated }) => {
                 <input type="submit" className="btn btn-primary" value="Cadastrar" />
             </form>
             <p className="my-1">
-                Já tem uma conta? <Link to="/login">Entrar</Link>
+                Já tem uma conta? <Link to="/login">Login</Link>
             </p>
         </Fragment>
     )

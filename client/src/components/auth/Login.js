@@ -43,7 +43,7 @@ const Login = ({ login, isAuthenticated }) => {
 
     return (
         <Fragment>
-            <h1 className="large text-primary">Entrar</h1>
+            <h1 className="large text-primary">Login</h1>
             <p className="lead"><i className="fas fa-user"></i> Acessar Conta</p>
             <form className="form-input" onSubmit={formik.handleSubmit} noValidate>
                 <div className="my-1">
@@ -77,7 +77,7 @@ const Login = ({ login, isAuthenticated }) => {
                         helperText={formik.touched.password && formik.errors.password}
                     />
                 </div>
-                <input className="btn btn-primary" type="submit"  value="Entrar" />
+                <input className="btn btn-primary" type="submit"  value="Login" />
             </form>
             <p className="my-1">
                 Não tem uma conta? <Link to="/cadastrar">Cadastrar</Link>

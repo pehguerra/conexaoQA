@@ -1,13 +1,14 @@
 import { withStyles } from '@material-ui/core/styles'
 import Select from '@material-ui/core/Select';
+import { primaryColor } from '../../utils/fieldColors'
 
 export const CssSelect = withStyles({
-    root: {
-        '& .MuiInput-underline:after': {
-            borderBottomColor: '#17a2b8'
+    select: {
+        '&.MuiInput-underline:after': {
+            borderBottomColor: primaryColor
         }
     },
     icon: {
-        fill: '#17a2b8'
+        fill: primaryColor
     }
 })(Select)
