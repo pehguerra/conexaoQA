@@ -10,7 +10,7 @@ import PostItem from '../posts/PostItem'
 import CommentForm from './CommentForm'
 import CommentItem from './CommentItem'
 
-const Post = ({ getPost, post: { post, loading }, match }) => {
+const Post = ({ getPost, post: { post, loading }, match, hasProfile }) => {
     const [pageNumber, setPageNumber] = useState(0)
 
     const postsPerPage = 7
@@ -44,7 +44,7 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
                 </Link>
                 <PostItem post={post} showActions={false} />
                 <CommentForm postId={post._id} />
-                <div className="comments">
+                <div className="comments" data-test="comments-allComments">
                     {
                         displayPosts
                     }

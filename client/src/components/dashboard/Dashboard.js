@@ -17,7 +17,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
 
     return (loading && profile === null ? <Spinner /> : <Fragment>
         <h1 className="large text-primary">Dashboard</h1>
-        <p className="lead">
+        <p className="lead" data-test="dashboard-welcome">
             <i className="fas fa-user"></i> Bem-vindo { user && user.name }
         </p>
         {profile !== null && !('errors' in profile) ? (
@@ -27,15 +27,15 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
                 <Education education={profile.education} />
 
                 <div className="my-2">
-                    <button className="btn btn-danger" onClick={() => deleteAccount()}>
+                    <button className="btn btn-danger" onClick={() => deleteAccount()} data-test="dashboard-deleteProfile">
                         <i className="fas fa-user-minus"></i> Excluir Conta
                     </button>
                 </div>
             </Fragment>
          ) : (
             <Fragment>
-                <p>Você não tem um perfil criado, por favor adicione algumas informações</p>
-                <Link to="/criar-perfil" className="btn btn-primary my-1">
+                <p data-test="dashboard-noProfile">Você não tem um perfil criado, por favor adicione algumas informações</p>
+                <Link to="/criar-perfil" className="btn btn-primary my-1" data-test="dashboard-createProfile">
                     Criar Perfil
                 </Link>
             </Fragment>

@@ -100,18 +100,19 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         onChange={formik.handleChange}
                         error={formik.touched.status && Boolean(formik.errors.status)}
                         helperText={formik.touched.status && formik.errors.status}
+                        data-test="profile-status"
                     >
-                        <MenuItem value={'Estudante ou Aprendendo'}>Estudante ou Aprendendo</MenuItem>
-                        <MenuItem value={'QA Junior'}>QA Júnior</MenuItem>
-                        <MenuItem value={'QA Pleno'}>QA Pleno</MenuItem>
-                        <MenuItem value={'QA Senior'}>QA Sênior</MenuItem>
-                        <MenuItem value={'QAE Junior'}>QAE Júnior</MenuItem>
-                        <MenuItem value={'QAE Pleno'}>QAE Pleno</MenuItem>
-                        <MenuItem value={'QAE Senior'}>QAE Sênior</MenuItem>
-                        <MenuItem value={'Especialista em QA'}>Especialista em QA</MenuItem>
-                        <MenuItem value={'Gerente de Testes'}>Gerente de Testes</MenuItem>
-                        <MenuItem value={'Professor ou Instrutor'}>Professor ou Instrutor</MenuItem>
-                        <MenuItem value={'Outro'}>Outro</MenuItem>
+                        <MenuItem value={'Estudante ou Aprendendo'} data-test="status-0">Estudante ou Aprendendo</MenuItem>
+                        <MenuItem value={'QA Junior'} data-test="status-1">QA Júnior</MenuItem>
+                        <MenuItem value={'QA Pleno'} data-test="status-2">QA Pleno</MenuItem>
+                        <MenuItem value={'QA Senior'} data-test="status-3">QA Sênior</MenuItem>
+                        <MenuItem value={'QAE Junior'} data-test="status-4">QAE Júnior</MenuItem>
+                        <MenuItem value={'QAE Pleno'} data-test="status-5">QAE Pleno</MenuItem>
+                        <MenuItem value={'QAE Senior'} data-test="status-6">QAE Sênior</MenuItem>
+                        <MenuItem value={'Especialista em QA'} data-test="status-7">Especialista em QA</MenuItem>
+                        <MenuItem value={'Gerente de Testes'} data-test="status-8">Gerente de Testes</MenuItem>
+                        <MenuItem value={'Professor ou Instrutor'} data-test="status-9">Professor ou Instrutor</MenuItem>
+                        <MenuItem value={'Outro'} data-test="status-10">Outro</MenuItem>
                     </CssSelect>
                     <small className="form-text">Nos dê uma ideia de onde você está em sua carreira</small>
                 </div>
@@ -124,6 +125,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         autoComplete="company"
                         value={formik.values.company}
                         onChange={formik.handleChange}
+                        data-test="profile-company"
                     />
                     <small className="form-text">Pode ser sua própria empresa ou uma para a qual você trabalha</small>
                 </div>
@@ -139,6 +141,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         onBlur={formik.handleBlur}
                         error={formik.touched.website && Boolean(formik.errors.website)}
                         helperText={formik.touched.website && formik.errors.website}
+                        data-test="profile-webSite"
                     />
                     <small className="form-text">Pode ser o seu próprio site ou de alguma empresa</small>
                 </div>
@@ -151,6 +154,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         autoComplete="location"
                         value={formik.values.location}
                         onChange={formik.handleChange}
+                        data-test="profile-location"
                     />
                     <small className="form-text">Cidade e estado (ex. Sorocaba, SP)</small>
                 </div>
@@ -167,6 +171,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         onBlur={formik.handleBlur}
                         error={formik.touched.skills && Boolean(formik.errors.skills)}
                         helperText={formik.touched.skills && formik.errors.skills}
+                        data-test="profile-skills"
                     />
                     <small className="form-text">Use vírgula para separar os valores por favor (ex. Testes de Integração, Automação de Testes, Cypress, Testes Manuais)</small>
                 </div>
@@ -179,6 +184,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         autoComplete="githubusername"
                         value={formik.values.githubusername}
                         onChange={formik.handleChange}
+                        data-test="profile-gitHub"
                     />
                     <small className="form-text">Se você quiser seus exibir seus repositórios mais recentes e um link para o GitHub, inclua seu nome de usuário</small>
                 </div>
@@ -192,19 +198,20 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         autoComplete="bio"
                         value={formik.values.bio}
                         onChange={formik.handleChange}
+                        data-test="profile-bio"
                     />
                     <small className="form-text">Conte-nos um pouco sobre você</small>
                 </div>
 
                 <div className="my-1">
-                    <button onClick={() => toogleSocialInputs(!displaySocialInputs)} type="button" className="btn btn-light">
+                    <button onClick={() => toogleSocialInputs(!displaySocialInputs)} type="button" className="btn btn-light" data-test="profile-socials">
                         Adicionar Redes Sociais
                     </button>
                     <span>Opcional</span>
                 </div>
 
                 {displaySocialInputs && <Fragment>
-                    <div className="my-1 social-input">
+                    <div className="my-1 social-input" data-test="profile-allSocials">
                         <Grid container spacing={1} alignItems="flex-end">
                             <Grid item style={{ minWidth: '5%'}}>
                                 <i className="fab fa-twitter fa-2x"></i>
@@ -221,6 +228,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.twitter && Boolean(formik.errors.twitter)}
                                     helperText={formik.touched.twitter && formik.errors.twitter}
+                                    data-test="profile-twitter"
                                 />
                             </Grid>
                         </Grid>
@@ -243,6 +251,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.facebook && Boolean(formik.errors.facebook)}
                                     helperText={formik.touched.facebook && formik.errors.facebook}
+                                    data-test="profile-facebook"
                                 />
                             </Grid>
                         </Grid>
@@ -265,6 +274,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.youtube && Boolean(formik.errors.youtube)}
                                     helperText={formik.touched.youtube && formik.errors.youtube}
+                                    data-test="profile-youtube"
                                 />
                             </Grid>
                         </Grid>
@@ -287,6 +297,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.linkedin && Boolean(formik.errors.linkedin)}
                                     helperText={formik.touched.linkedin && formik.errors.linkedin}
+                                    data-test="profile-linkedin"
                                 />
                             </Grid>
                         </Grid>
@@ -309,6 +320,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.instagram && Boolean(formik.errors.instagram)}
                                     helperText={formik.touched.instagram && formik.errors.instagram}
+                                    data-test="profile-instagram"
                                 />
                             </Grid>
                         </Grid>
@@ -331,13 +343,14 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                                     onBlur={formik.handleBlur}
                                     error={formik.touched.medium && Boolean(formik.errors.medium)}
                                     helperText={formik.touched.medium && formik.errors.medium}
+                                    data-test="profile-medium"
                                 />
                             </Grid>
                         </Grid>
                     </div>
                 </Fragment>}
-                <input type="submit" className="btn btn-primary" value="Atualizar Perfil" />
-                <Link className="btn btn-light my-1" to="/dashboard">Dashboard</Link>
+                <input type="submit" className="btn btn-primary" value="Atualizar Perfil" data-test="profile-submit" />
+                <Link className="btn btn-light my-1" to="/dashboard" data-test="profile-dashboard">Dashboard</Link>
             </form>
         </Fragment>
     )

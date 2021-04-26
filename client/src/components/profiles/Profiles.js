@@ -37,8 +37,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                 <p className="lead">
                     <i className="fab fa-connectdevelop"> Navegue e conecte-se com outros QAs</i>
                 </p>
-                <div className="profiles">
-                    {profiles.length > 0 ? displayPosts : <h4>Nenhum perfil encontrado</h4>}
+                <div className="profiles" data-test="profiles-allProfiles">
+                    {profiles.length > 0 ? displayPosts : <h4 data-test="profiles-noProfiles">Nenhum perfil encontrado</h4>}
                 </div>
                 <Pagination pageCount={pageCount} changePage={changePage} />
             </Fragment> }

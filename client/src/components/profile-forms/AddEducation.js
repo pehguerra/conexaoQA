@@ -84,6 +84,7 @@ const AddEducation = ({ addEducation, history }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.school && Boolean(formik.errors.school)}
                         helperText={formik.touched.school && formik.errors.school}
+                        data-test="education-school"
                     />
                 </div>
                 <div className="my-1">
@@ -99,6 +100,7 @@ const AddEducation = ({ addEducation, history }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.degree && Boolean(formik.errors.degree)}
                         helperText={formik.touched.degree && formik.errors.degree}
+                        data-test="education-degree"
                     />
                 </div>
                 <div className="my-1">
@@ -114,6 +116,7 @@ const AddEducation = ({ addEducation, history }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.fieldofstudy && Boolean(formik.errors.fieldofstudy)}
                         helperText={formik.touched.fieldofstudy && formik.errors.fieldofstudy}
+                        data-test="education-fieldOfStudy"
                     />
                 </div>
                 <div className="my-1">
@@ -132,6 +135,7 @@ const AddEducation = ({ addEducation, history }) => {
                                     "aria-label": "change date"
                                 }}
                                 autoOk
+                                data-test="education-from"
                             />
                         </ThemeProvider>
                     </MuiPickersUtilsProvider>
@@ -151,6 +155,7 @@ const AddEducation = ({ addEducation, history }) => {
                                     style ={{
                                         color: "#17a2b8",
                                     }}
+                                    data-test="education-current"
                                 /> 
                             }
                             label="Cursando"
@@ -174,6 +179,7 @@ const AddEducation = ({ addEducation, history }) => {
                                     "aria-label": "change date"
                                 }}
                                 autoOk
+                                data-test="education-to"
                             />
                         </ThemeProvider>
                     </MuiPickersUtilsProvider>
@@ -188,10 +194,11 @@ const AddEducation = ({ addEducation, history }) => {
                         autoComplete="description"
                         value={formik.values.description}
                         onChange={formik.handleChange}
+                        data-test="education-description"
                     />
                 </div>
-                <input type="submit" className="btn btn-primary my-1" value="Adicionar Formação" />
-                <Link className="btn btn-light my-1" to="/dashboard">Retornar</Link>
+                <input type="submit" className="btn btn-primary my-1" value="Adicionar Formação" data-test="education-submit" />
+                <Link className="btn btn-light my-1" to="/dashboard" data-test="education-dashboard">Retornar</Link>
             </form>
         </Fragment>
     )

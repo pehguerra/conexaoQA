@@ -6,15 +6,15 @@ const About = () => {
             <h1 className="large text-primary"><i className="fas fa-exclamation-circle"></i> Sobre</h1>
             <hr style={{ marginTop: '30px' }} />
             <div style={{ textAlign: 'right', marginTop: '5px', marginBottom: '20px' }}>
-                <p style={{ fontSize: '13px' }}>Criado e desenvolvido por Pedro Guerra</p>
+                <p data-test="about-developer" style={{ fontSize: '13px' }}>Criado e desenvolvido por Pedro Guerra</p>
             </div>
             <div>
                 <p className="lead"><i className="fas fa-bullseye"></i> Propósito</p>
-                <p>Projeto web para praticar/treinar/testar automação de testes com Cypress.io ou qualquer outro framework de teste</p>
+                <p data-test="about-description">Projeto web para praticar/treinar/testar automação de testes com Cypress.io ou qualquer outro framework de teste</p>
             </div>
             <div className="my-2">
                 <p className="lead"><i className="fas fa-sitemap"></i> Funcionalidades</p>
-                <ul>
+                <ul data-test="about-features">
                     <li>- Registrar usuário com senhas criptografadas</li>
                     <li>- Login com JWT (JSON Web Token)</li>
                     <li>- Criar perfil de usuário com experiências profissionais, formações acadêmicas e redes sociais</li>
@@ -27,15 +27,15 @@ const About = () => {
             </div>
             <div className="my-2">
                 <p className="lead"><i className="fab fa-github"></i> GitHub Repositório</p>
-                <a href="https://github.com/pehguerra/conexaoQA" target="_blank" rel="noopener noreferrer">ConexãoQA Repositório</a>
+                <a href="https://github.com/pehguerra/conexaoQA" target="_blank" rel="noopener noreferrer" data-test="about-github">ConexãoQA Repositório</a>
             </div>
             <div className="my-2">
                 <p className="lead"><i className="fas fa-cog"></i> Swagger - Documentação da API</p>
-                <a href="https://conexaoqa.herokuapp.com/api-docs/" target="_blank" rel="noopener noreferrer">Express API com Swagger</a>
+                <a href="https://conexaoqa.herokuapp.com/api-docs/" target="_blank" rel="noopener noreferrer" data-test="about-swagger">Express API com Swagger</a>
             </div>
             <div className="my-2">
                 <p className="lead"><i className="fab fa-medium"></i> Medium</p>
-                <a href="https://pedrohsguerra.medium.com/" target="_blank" rel="noopener noreferrer">Artigos de Cypress</a>
+                <a href="https://pedrohsguerra.medium.com/" target="_blank" rel="noopener noreferrer" data-test="about-medium">Artigos de Cypress</a>
             </div>
         </Fragment>
     )

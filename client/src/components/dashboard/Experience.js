@@ -6,7 +6,7 @@ import { deleteExperience } from '../../actions/profile'
 
 const Experience = ({ experience, deleteExperience }) => {
     const experiences = experience.map(({ _id, company, title, from, to }) => (
-        <tr key={_id}>
+        <tr key={_id} data-test={`experience-${_id}`}>
             <td>{company}</td>
             <td className="hide-sm">{title}</td>
             <td className="hide-sm">
@@ -15,7 +15,7 @@ const Experience = ({ experience, deleteExperience }) => {
                 }
             </td>
             <td>
-                <button className="btn btn-danger" onClick={() => deleteExperience(_id)}>Excluir</button>
+                <button className="btn btn-danger" onClick={() => deleteExperience(_id)} data-test="experience-delete">Excluir</button>
             </td>
         </tr>
     ))

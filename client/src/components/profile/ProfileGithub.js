@@ -13,26 +13,26 @@ const ProfileGithub = ({ username, getGithubRepos, repos, error }) => {
     
     return (
         error && error.status === 403 ? 
-        <div>
+        <div data-test="profile-gitHub">
             <h2 className="text-primary my-1">Repositórios GitHub</h2>
             <p className="Lead">Limite de taxa de uso da API do GitHub excedido. Aguarde alguns minutos</p>
         </div>
         :
-        <div className="profile-github">
+        <div className="profile-github" data-test="profile-gitHub">
             <h2 className="text-primary my-1">Repositórios GitHub</h2>
             {repos === null ? <Spinner /> : (
                 repos.map(repo => (
-                    <div key={repo.id} className="repo bg-white p-1 my-1">
+                    <div key={repo.id} className="repo bg-white p-1 my-1" data-test={`repo-${repo.id}`}>
                         <div>
                             <h4>
-                                <a href={repo.html_url} targe='_blank' rel='noopener noreferrer'>
+                                <a href={repo.html_url} targe='_blank' rel='noopener noreferrer' data-test="repo-url">
                                     {repo.name}
                                 </a>
                             </h4>
-                            <p>{repo.description}</p>
+                            <p data-test="repo-description">{repo.description}</p>
                         </div>
                         <div>
-                            <ul>
+                            <ul data-test="repo-badgets">
                                 <li className="badge badge-primary">
                                     Stars: {repo.stargazers_count}
                                 </li>

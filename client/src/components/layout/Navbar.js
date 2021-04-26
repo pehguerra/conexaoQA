@@ -7,17 +7,17 @@ import { logout } from '../../actions/auth'
 const Navbar = ({ auth: { isAuthenticated }, logout }) => {
     const authLinks = (
         <ul>
-            <li><Link to="/perfis">QAs</Link></li>
-            <li><Link to="/posts">Posts</Link></li>
+            <li><Link to="/perfis" data-test="navbar-QAs">QAs</Link></li>
+            <li><Link to="/posts" data-test="navbar-posts">Posts</Link></li>
             <li>
-                <Link to="/dashboard">
+                <Link to="/dashboard" data-test="navbar-dashboard">
                     <i className="fas fa-user"></i>{' '}
                     <span className="hide-sm">Dashboard</span>
                 </Link>
             </li>
-            <li><Link to="/sobre">Sobre</Link></li>
+            <li><Link to="/sobre" data-test="navbar-about">Sobre</Link></li>
             <li>
-                <Link onClick={logout} to="/">
+                <Link onClick={logout} to="/" data-test="navbar-logout">
                     <i className="fas fa-sign-out-alt"></i>{' '}
                     <span className="hide-sm">Sair</span>
                 </Link>
@@ -27,17 +27,17 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 
     const guestLinks = (
         <ul>
-            <li><Link to="/perfis">QAs</Link></li>
-            <li><Link to="/sobre">Sobre</Link></li>
-            <li><Link to="/cadastrar">Cadastrar</Link></li>
-            <li><Link to="/login">Login</Link></li>
+            <li><Link to="/perfis" data-test="navbar-QAs">QAs</Link></li>
+            <li><Link to="/sobre" data-test="navbar-about">Sobre</Link></li>
+            <li><Link to="/cadastrar" data-test="navbar-register">Cadastrar</Link></li>
+            <li><Link to="/login" data-test="navbar-login">Login</Link></li>
         </ul>
     )
 
     return (
         <nav className="navbar bg-dark">
             <h1>
-                <Link to="/"><i className="fas fa-code"></i> ConexãoQA</Link>
+                <Link to="/"><i className="fas fa-code" data-test="navbar-conexaoQA"></i> ConexãoQA</Link>
             </h1>
             <Fragment>{ isAuthenticated ? authLinks : guestLinks }</Fragment>
         </nav>

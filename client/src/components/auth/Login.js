@@ -59,6 +59,7 @@ const Login = ({ login, isAuthenticated }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.email && Boolean(formik.errors.email)}
                         helperText={formik.touched.email && formik.errors.email}
+                        data-test="login-email"
                     />
                 </div>
                 <div className="my-1">
@@ -75,12 +76,13 @@ const Login = ({ login, isAuthenticated }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.password && Boolean(formik.errors.password)}
                         helperText={formik.touched.password && formik.errors.password}
+                        data-test="login-password"
                     />
                 </div>
-                <input className="btn btn-primary" type="submit"  value="Login" />
+                <input className="btn btn-primary" type="submit"  value="Login" data-test="login-submit" />
             </form>
             <p className="my-1">
-                Não tem uma conta? <Link to="/cadastrar">Cadastrar</Link>
+                Não tem uma conta? <Link to="/cadastrar" data-test="login-register">Cadastrar</Link>
             </p>
         </Fragment>
     )

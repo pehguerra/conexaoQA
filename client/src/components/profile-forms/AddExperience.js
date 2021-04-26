@@ -79,6 +79,7 @@ const AddExperience = ({ addExperience, history }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.title && Boolean(formik.errors.title)}
                         helperText={formik.touched.title && formik.errors.title}
+                        data-test="experience-title"
                     />
                 </div>
                 <div className="my-1">
@@ -94,6 +95,7 @@ const AddExperience = ({ addExperience, history }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.company && Boolean(formik.errors.company)}
                         helperText={formik.touched.company && formik.errors.company}
+                        data-test="experience-company"
                     />
                 </div>
                 <div className="my-1">
@@ -108,6 +110,7 @@ const AddExperience = ({ addExperience, history }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.location && Boolean(formik.errors.location)}
                         helperText={formik.touched.location && formik.errors.location}
+                        data-test="experience-location"
                     />
                 </div>
                 <div className="my-1">
@@ -126,6 +129,7 @@ const AddExperience = ({ addExperience, history }) => {
                                     "aria-label": "change date"
                                 }}
                                 autoOk
+                                data-test="experience-from"
                             />
                         </ThemeProvider>
                     </MuiPickersUtilsProvider>
@@ -145,6 +149,7 @@ const AddExperience = ({ addExperience, history }) => {
                                     style ={{
                                         color: "#17a2b8",
                                     }}
+                                    data-test="experience-current"
                                 /> 
                             }
                             label="Atual"
@@ -168,6 +173,7 @@ const AddExperience = ({ addExperience, history }) => {
                                     "aria-label": "change date"
                                 }}
                                 autoOk
+                                data-test="experience-to"
                             />
                         </ThemeProvider>
                     </MuiPickersUtilsProvider>
@@ -182,10 +188,11 @@ const AddExperience = ({ addExperience, history }) => {
                         autoComplete="description"
                         value={formik.values.description}
                         onChange={formik.handleChange}
+                        data-test="experience-description"
                     />
                 </div>
-                <input type="submit" className="btn btn-primary my-1" value="Adicionar Experiência" />
-                <Link className="btn btn-light my-1" to="/dashboard">Retornar</Link>
+                <input type="submit" className="btn btn-primary my-1" value="Adicionar Experiência" data-test="experience-submit" />
+                <Link className="btn btn-light my-1" to="/dashboard" data-test="experience-dashboard">Retornar</Link>
             </form>
         </Fragment>
     )

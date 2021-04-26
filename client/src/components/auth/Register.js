@@ -65,6 +65,7 @@ const Register = ({ register, isAuthenticated }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.name && Boolean(formik.errors.name)}
                         helperText={formik.touched.name && formik.errors.name}
+                        data-test="register-name"
                     />
                 </div>
                 <div className="my-1">
@@ -79,6 +80,7 @@ const Register = ({ register, isAuthenticated }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.email && Boolean(formik.errors.email)}
                         helperText={formik.touched.email && formik.errors.email}
+                        data-test="register-email"
                     />
                     <small className="form-text">
                         Este site usa Gravatar, então caso queira uma imagem para o perfil, user o email Gravatar
@@ -98,6 +100,7 @@ const Register = ({ register, isAuthenticated }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.password && Boolean(formik.errors.password)}
                         helperText={formik.touched.password && formik.errors.password}
+                        data-test="register-password"
                     />
                 </div>
                 <div className="my-1">
@@ -113,12 +116,13 @@ const Register = ({ register, isAuthenticated }) => {
                         onBlur={formik.handleBlur}
                         error={formik.touched.password2 && Boolean(formik.errors.password2)}
                         helperText={formik.touched.password2 && formik.errors.password2}
+                        data-test="register-password2"
                     />
                 </div>
-                <input type="submit" className="btn btn-primary" value="Cadastrar" />
+                <input type="submit" className="btn btn-primary" value="Cadastrar" data-test="register-submit" />
             </form>
             <p className="my-1">
-                Já tem uma conta? <Link to="/login">Login</Link>
+                Já tem uma conta? <Link to="/login" data-test="register-login">Login</Link>
             </p>
         </Fragment>
     )

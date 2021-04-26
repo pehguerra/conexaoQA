@@ -16,7 +16,8 @@ Aplicação para criar perfis de QA, compartilhar e postar dúvidas, dicas, vaga
 - Postar dúvidas/sugestões/perguntas ou qualquer iteração com a comunidade de QA
 - Like/Unlike em posts
 - Criar threads de conversas em posts
-- áginação de posts e comentários a partir de 7 posts
+- Páginação de posts e comentários a partir de 7 posts
+- Atributo data-test para elementos HTML
 
 ___
 ## Tech

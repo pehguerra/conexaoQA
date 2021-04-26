@@ -6,7 +6,7 @@ import { deleteEducation } from '../../actions/profile'
 
 const Education = ({ education, deleteEducation }) => {
     const educations = education.map(({ _id, school, degree, from, to }) => (
-        <tr key={_id}>
+        <tr key={_id} data-test={`education-${_id}`}>
             <td>{school}</td>
             <td className="hide-sm">{degree}</td>
             <td className="hide-sm">
@@ -15,7 +15,7 @@ const Education = ({ education, deleteEducation }) => {
                 }
             </td>
             <td>
-                <button className="btn btn-danger" onClick={() => deleteEducation(_id)}>Excluir</button>
+                <button className="btn btn-danger" onClick={() => deleteEducation(_id)} data-test="education-delete">Excluir</button>
             </td>
         </tr>
     ))

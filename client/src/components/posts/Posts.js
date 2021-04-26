@@ -40,7 +40,7 @@ const Posts = ({ getPosts, getProfiles, post: { posts, loading }, profile: { pro
                 <i className="fas fa-user"></i> Bem-vindo a comunidade
             </p>
             <PostForm />
-            <div className="posts" style={{ marginBottom: '20px' }}>
+            <div className="posts" style={{ marginBottom: '20px' }} data-test="posts-allPosts">
                 {
                     displayPosts
                 }
