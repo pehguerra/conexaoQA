@@ -37,7 +37,6 @@ const About = () => {
                 <p className="lead"><i className="fab fa-medium"></i> Medium</p>
                 <a href="https://pedrohsguerra.medium.com/" target="_blank" rel="noopener noreferrer">Artigos de Cypress</a>
             </div>
-            
         </Fragment>
     )
 }
