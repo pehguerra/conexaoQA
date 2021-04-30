@@ -1,6 +1,6 @@
 import { SET_ALERT, REMOVE_ALERT } from '../actions/types'
 
-const initialState = []
+const initialState = (window.Cypress && window.initialState) || []
 
 export default function alerts(state = initialState, action) {
     const { type, payload } = action

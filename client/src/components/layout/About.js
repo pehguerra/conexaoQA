@@ -23,6 +23,9 @@ const About = () => {
                     <li>- Like/Unlike em posts</li>
                     <li>- Criar threads de conversas em posts</li>
                     <li>- Páginação de posts e comentários a partir de 7 posts</li>
+                    <li>- Atributo data-test para elementos HTML</li>
+                    <li>- Redux DevTools (Extensão Chrome) habilitado para o site</li>
+                    <li>- Redux Store disponível no window.store e estado inicial do state disponível no window.initialState</li>
                 </ul>
             </div>
             <div className="my-2">

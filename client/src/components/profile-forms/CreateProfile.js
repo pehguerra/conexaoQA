@@ -84,7 +84,7 @@ const CreateProfile = ({ createProfile, history }) => {
                             id="status" 
                             required 
                             error={formik.touched.status && Boolean(formik.errors.status)}
-                            helperText={formik.touched.status && formik.errors.status}
+                            // helperText={formik.touched.status && formik.errors.status}
                         >Status
                         </InputLabel>
                         <CssSelect

@@ -18,6 +18,8 @@ Aplicação para criar perfis de QA, compartilhar e postar dúvidas, dicas, vaga
 - Criar threads de conversas em posts
 - Páginação de posts e comentários a partir de 7 posts
 - Atributo data-test para elementos HTML
+- Redux DevTools (Extensão Chrome) habilitado para o site
+- Redux Store disponível no window.store e estado inicial do state disponível no window.initialState
 
 ___
 ## Tech

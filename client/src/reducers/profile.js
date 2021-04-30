@@ -1,6 +1,6 @@
 import { GET_PROFILE, GET_PROFILES, GET_REPOS, PROFILE_ERROR, CLEAR_PROFILE, UPDATE_PROFILE } from '../actions/types'
 
-const initialState = {
+const initialState = (window.Cypress && window.initialState) || {
     profile: null,
     profiles: [],
     repos: [],

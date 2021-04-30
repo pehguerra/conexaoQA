@@ -1,8 +1,7 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, DELETE_ACCOUNT } from '../actions/types'
-import { getCookie, setCookie, eraseCookie } from '../utils/cookies'
+import { setCookie, eraseCookie } from '../utils/cookies'
 
-const initialState = {
-    jwt: getCookie('jwt') || null,
+const initialState = (window.Cypress && window.initialState) || {
     isAuthenticated: false,
     loading: true,
     user: null
@@ -24,7 +23,6 @@ export default function authentication(state = initialState, action) {
             setCookie('jwt', payload.jwt, 3600000)
             return {
                 ...state,
-                ...payload,
                 isAuthenticated: true,
                 loading: false
             }
@@ -36,7 +34,6 @@ export default function authentication(state = initialState, action) {
             eraseCookie('jwt')
             return {
                 ...state,
-                jwt: null,
                 isAuthenticated: false,
                 loading: false
             }

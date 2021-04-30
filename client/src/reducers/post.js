@@ -1,6 +1,6 @@
 import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, DELETE_COMMENT } from '../actions/types'
 
-const initialState = {
+const initialState = (window.Cypress && window.initialState) || {
     posts: [],
     post: null,
     loading: true,
