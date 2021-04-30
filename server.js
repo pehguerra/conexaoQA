@@ -3,6 +3,7 @@ const connectDB = require('./config/db')
 const path = require('path')
 const swaggerJsdoc = require("swagger-jsdoc")
 const swaggerUi = require("swagger-ui-express")
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
@@ -11,6 +12,9 @@ connectDB()
 
 // init middleware to work with json (body and response)
 app.use(express.json({ extended: false }))
+
+// enables to read cookie as js object
+app.use(cookieParser())
 
 // disable auto cache
 app.disable('etag')

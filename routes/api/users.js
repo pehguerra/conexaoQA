@@ -128,7 +128,7 @@ router.post('/', [
             { expiresIn: 3600 },
             (err, token) => {
                 if(err) throw err
-                res.status(201).json({ jwt: token })
+                res.cookie('xAuthToken', token, { expires: new Date(Date.now() + (1 * 30 * 30 * 1000)) }).status(201).json({ jwt: token })
             })
     } catch(err) {
         console.error(err.message)
