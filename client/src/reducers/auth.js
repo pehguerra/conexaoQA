@@ -1,5 +1,5 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, DELETE_ACCOUNT } from '../actions/types'
-import { setCookie, eraseCookie } from '../utils/cookies'
+import { eraseCookie } from '../utils/cookies'
 
 const initialState = (window.Cypress && window.initialState) || {
     isAuthenticated: false,
@@ -20,7 +20,6 @@ export default function authentication(state = initialState, action) {
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
-            setCookie('jwt', payload.jwt, 3600000)
             return {
                 ...state,
                 isAuthenticated: true,

@@ -3,7 +3,7 @@ const keys = require('../config/keys')
 
 module.exports = function(req, res, next) {
     // get token from header
-    const token = req.cookies.xAuthToken
+    const token = req.cookies.jwt
 
     // check if not token
     if(!token) {

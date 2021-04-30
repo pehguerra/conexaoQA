@@ -99,7 +99,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
                         value={formik.values.status}
                         onChange={formik.handleChange}
                         error={formik.touched.status && Boolean(formik.errors.status)}
-                        helperText={formik.touched.status && formik.errors.status}
+                        // helperText={formik.touched.status && formik.errors.status}
                         data-test="profile-status"
                     >
                         <MenuItem value={'Estudante ou Aprendendo'} data-test="status-0">Estudante ou Aprendendo</MenuItem>
