@@ -194,12 +194,12 @@ const User = require('../../models/User')
  *     description: Seleciona todos os posts. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     responses:
  *       "200":
  *         description: Todos os posts
@@ -236,12 +236,12 @@ router.get('/', auth, async (req, res) => {
  *     description: Cria um post para o usuário com o token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     requestBody:
  *       description: Texto que será postado
  *       required: true
@@ -314,12 +314,12 @@ router.post('/', [ auth, [
  *     description: Seleciona o post pelo ID. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: postId
  *         schema:
@@ -370,12 +370,12 @@ router.get('/:id', auth, async (req, res) => {
  *     description: Deleta o post pelo ID. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: postId
  *         schema:
@@ -439,12 +439,12 @@ router.delete('/:id', auth, async (req, res) => {
  *     description: Curte um post com o usuário informado no token do header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: postId
  *         schema:
@@ -514,12 +514,12 @@ router.put('/like/:id', auth, async (req, res) => {
  *     description: Descurte um post com o usuário informado no token do header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: postId
  *         schema:
@@ -592,12 +592,12 @@ router.put('/unlike/:id', auth, async (req, res) => {
  *     description: Cria um comentário no post informado no path parameter com o usuário informado no token do header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: postId
  *         schema:
@@ -690,12 +690,12 @@ router.post('/comment/:id', [ auth, [
  *     description: Deleta o comentário do usuário pelo ID no post informado no ID. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Posts]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: postId
  *         schema:

@@ -413,12 +413,12 @@ const { restart } = require('nodemon')
  *     description: Seleciona o perfil do usuário logado com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Profile]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     responses:
  *       "200":
  *         description: Perfil do usuário
@@ -461,12 +461,12 @@ router.get('/me', auth, async (req, res) => {
  *     description: Cria ou atualiza um perfil existente para o usuário com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Profile]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     requestBody:
  *       description: Informações do perfil
  *       required: true
@@ -650,12 +650,12 @@ router.get('/user/:user_id', async (req, res) => {
  *     description: Deleta o perfil, posts e a conta do usuário com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Profile]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     responses:
  *       "200":
  *         description: Usuário excluído
@@ -698,12 +698,12 @@ router.delete('/', auth, async (req, res) => {
  *     description: Adiciona experiência profissional no perfil com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Profile]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     requestBody:
  *       description: Informações da experiência profissional
  *       required: true
@@ -804,12 +804,12 @@ router.put('/experience', [ auth, [
  *     description: Deleta experiência profissional com base no ID informado no path parameter e no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Profile]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: expId
  *         schema:
@@ -869,12 +869,12 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
  *     description: Adiciona formação acadêmica no perfil com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Profile]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     requestBody:
  *       description: Informações da formação acadêmica
  *       required: true
@@ -979,12 +979,12 @@ router.put('/education', [ auth, [
  *     description: Deleta formação acadêmica com base no ID informado no path parameter e no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Profile]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *       - in: path
  *         name: eduId
  *         schema:

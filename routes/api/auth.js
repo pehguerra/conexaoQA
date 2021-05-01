@@ -85,12 +85,12 @@ const User = require('../../models/User')
  *     description: Seleciona o usuário logado com base no token informado no header. Pegar o token no serviço -> *Auth - [POST] /api/auth*
  *     tags: [Auth]
  *     parameters:
- *       - in: header
- *         name: x-auth-token
+ *       - in: cookie
+ *         name: jwt
  *         schema:
  *           type: string
  *         required: true
- *         description: Token do usuário
+ *         description: Token do usuário. Se houver jwt cookie no browser, este parâmetro será sobrescrito
  *     responses:
  *       "200":
  *         description: Dados do usuário logado, menos a senha
