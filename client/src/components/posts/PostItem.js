@@ -20,7 +20,6 @@ const PostItem = ({ addLike, removeLike, deletePost, auth, post: { _id, text, na
                         <h4 data-test="post-profileNoLink">{name}</h4>
                     </Fragment>
                 )}
-                
             </div>
             <div>
                 <p className="my-1" data-test="post-description">
@@ -63,7 +62,8 @@ PostItem.propTypes = {
     auth: PropTypes.object.isRequired,
     addLike: PropTypes.func.isRequired,
     removeLike: PropTypes.func.isRequired,
-    deletePost: PropTypes.func.isRequired
+    deletePost: PropTypes.func.isRequired,
+    hasProfile: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = ({ auth }) => ({

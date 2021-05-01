@@ -1,18 +1,25 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Moment from 'react-moment'
 import { deleteComment } from '../../actions/post'
 
-const CommentItem = ({ postId, comment: { _id, text, name, avatar, user, date }, auth, deleteComment }) => {
+const CommentItem = ({ postId, comment: { _id, text, name, avatar, user, date }, auth, hasProfile, deleteComment }) => {
     return (
         <div className="post bg-white p-1 my-1" data-test={`comment-${_id}`}>
           <div>
-            <Link to={`/perfil/${user}`}>
-              <img className="round-img" src={avatar} alt="" />
-              <h4 data-test="post-profileLink">{name}</h4>
-            </Link>
+              {hasProfile ? (
+                    <Link to={`/perfil/${user}`}>
+                        <img className="round-img" src={avatar} alt="" data-test="post-avatar" />
+                        <h4 data-test="post-profileLink">{name}</h4>
+                    </Link>
+                ) : (
+                    <Fragment>
+                        <img className="round-img" src={avatar} alt="" data-test="post-avatar" />
+                        <h4 data-test="post-profileNoLink">{name}</h4>
+                    </Fragment>
+                )}
           </div>
           <div>
             <p className="my-1" data-test="comment-description">
@@ -39,7 +46,7 @@ CommentItem.propTypes = {
 }
 
 const mapStateToProps = ({ auth }) => ({
-    auth
+    auth,
 })
 
 export default connect(mapStateToProps, { deleteComment })(CommentItem)

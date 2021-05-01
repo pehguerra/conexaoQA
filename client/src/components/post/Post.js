@@ -10,7 +10,7 @@ import PostItem from '../posts/PostItem'
 import CommentForm from './CommentForm'
 import CommentItem from './CommentItem'
 
-const Post = ({ getPost, post: { post, loading }, match, hasProfile }) => {
+const Post = ({ getPost, post: { post, loading }, match, profile: { profiles } }) => {
     const [pageNumber, setPageNumber] = useState(0)
 
     const postsPerPage = 7
@@ -22,7 +22,7 @@ const Post = ({ getPost, post: { post, loading }, match, hasProfile }) => {
         post.comments
         .slice(pagesVisited, pagesVisited + postsPerPage)
         .map(comment => (
-            <CommentItem key={comment._id} comment={comment} postId={post._id} />
+            <CommentItem key={comment._id} comment={comment} postId={post._id} hasProfile={profiles.filter(profile => profile.user.name === post.name).length > 0 ? true : false} />
         ))
 
     const changePage = ({ selected }) => {
@@ -56,11 +56,13 @@ const Post = ({ getPost, post: { post, loading }, match, hasProfile }) => {
 
 Post.propTypes = {
     getPost: PropTypes.func.isRequired,
-    post: PropTypes.object.isRequired
+    post: PropTypes.object.isRequired,
+    profile: PropTypes.object.isRequired
 }
 
-const mapStateToProps = ({ post }) => ({
-    post
+const mapStateToProps = ({ post, profile }) => ({
+    post,
+    profile
 })
 
 export default connect(mapStateToProps, { getPost })(Post)
