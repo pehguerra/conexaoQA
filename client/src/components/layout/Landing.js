@@ -12,10 +12,10 @@ const Landing = ({ isAuthenticated }) => {
         <section className="landing">
             <div className="dark-overlay">
                 <div className="landing-inner">
-                    <h1 className="x-large">Conectando QAs ...</h1>
-                    <p className="lead">
-                        Crie um perfil/portfolio de QA, compartilhe posts e obtenha ajuda
-                        de outros QAs
+                    <h1 className="x-large" data-test="landing-title">Conectando QAs ...</h1>
+                    <p className="lead" data-test="landing-subtitle">
+                        Crie um perfil/portfolio, compartilhe posts e obtenha ajuda
+                        da comunidade de QA
                     </p>
                     <div className="buttons">
                         <Link to="/cadastrar" className="btn btn-primary" data-test="landing-register">Cadastrar</Link>
