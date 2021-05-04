@@ -64,8 +64,8 @@ const CreateProfile = ({ createProfile, history }) => {
             medium: ''
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            createProfile(values)
+        onSubmit: async (values) => {
+            await createProfile(values)
             history.push('/dashboard')
         }
     })

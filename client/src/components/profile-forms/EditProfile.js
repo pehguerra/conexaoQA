@@ -64,8 +64,8 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
             medium: loading || !profile.social ? '' : profile.social.medium
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            createProfile(values, true)
+        onSubmit: async (values) => {
+            await createProfile(values, true)
             history.push('/dashboard')
         }
     })
