@@ -31,7 +31,7 @@ const Post = ({ getPost, post: { post, loading }, match, profile: { profiles } }
     
     useEffect(() => {
         getPost(match.params.id)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [])
 
     return (

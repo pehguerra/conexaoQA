@@ -14,7 +14,7 @@ import ProfileGithub from './ProfileGithub'
 const Profile = ({ getProfileById, match, profile: { profile, loading }, auth }) => {
     useEffect(() => {
         getProfileById(match.params.id)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [])
 
     return (

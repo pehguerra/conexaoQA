@@ -8,7 +8,7 @@ import Spinner from '../layout/Spinner'
 const ProfileGithub = ({ username, getGithubRepos, repos, error }) => {
     useEffect(() => {
         getGithubRepos(username)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [])
     
     return (

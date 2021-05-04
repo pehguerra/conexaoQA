@@ -71,7 +71,7 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
 
     useEffect(() => {
         getCurrentProfile()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [])
 
     return (

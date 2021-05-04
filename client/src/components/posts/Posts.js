@@ -30,7 +30,7 @@ const Posts = ({ getPosts, getProfiles, post: { posts, loading }, profile: { pro
     useEffect(() => {
         getProfiles()
         getPosts()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [])
 
     return (

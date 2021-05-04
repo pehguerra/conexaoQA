@@ -17,7 +17,7 @@ import Profile from '../profile/Profile'
 import Posts from '../posts/Posts'
 import Post from '../post/Post'
 
-const Routes = props => {
+const Routes = () => {
     return (
         <section className="container">
             <Alert />
