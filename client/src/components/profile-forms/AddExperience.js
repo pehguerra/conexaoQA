@@ -51,8 +51,8 @@ const AddExperience = ({ addExperience, history }) => {
             description: ''
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            addExperience(values)
+        onSubmit: async (values) => {
+            await addExperience(values)
             history.push('/dashboard')
         }
     })

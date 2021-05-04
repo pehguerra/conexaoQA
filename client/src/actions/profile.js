@@ -108,7 +108,7 @@ export const addExperience = (formData) => async dispatch => {
 
         const res = await axios.put('/api/profile/experience', formData)
 
-        await dispatch({
+        dispatch({
             type: UPDATE_PROFILE,
             payload: res.data
         })
@@ -135,7 +135,7 @@ export const addEducation = (formData) => async dispatch => {
 
         const res = await axios.put('/api/profile/education', formData)
 
-        await dispatch({
+        dispatch({
             type: UPDATE_PROFILE,
             payload: res.data
         })
