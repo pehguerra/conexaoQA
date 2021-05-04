@@ -52,7 +52,8 @@ const AddExperience = ({ addExperience, history }) => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            addExperience(values, history)
+            addExperience(values)
+            history.push('/dashboard')
         }
     })
 

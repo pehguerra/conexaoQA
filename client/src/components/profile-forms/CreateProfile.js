@@ -65,7 +65,8 @@ const CreateProfile = ({ createProfile, history }) => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            createProfile(values, history)
+            createProfile(values)
+            history.push('/dashboard')
         }
     })
 

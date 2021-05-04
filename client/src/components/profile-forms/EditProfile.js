@@ -65,7 +65,8 @@ const EditProfile = ({ profile: { profile, loading }, createProfile, getCurrentP
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            createProfile(values, history, true)
+            createProfile(values, true)
+            history.push('/dashboard')
         }
     })
 

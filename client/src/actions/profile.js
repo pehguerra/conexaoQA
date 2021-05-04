@@ -74,13 +74,9 @@ export const getGithubRepos = username => async dispatch => {
 }
 
 // create or update profile
-export const createProfile = (formData, history, edit = false) => async dispatch => {
+export const createProfile = (formData, edit = false) => async dispatch => {
+    
     try {
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }
 
         // const res = await axios.post('/api/profile', formData, config)
         const res = await axios.post('/api/profile', formData)
@@ -91,10 +87,6 @@ export const createProfile = (formData, history, edit = false) => async dispatch
         })
 
         dispatch(setAlert(edit ? 'Perfil Atualizado' : 'Perfil Criado', 'success'))
-
-        
-        history.push('/dashboard')
-        
     } catch(err) {
         const errors = err.response.data.errors
         
@@ -111,23 +103,17 @@ export const createProfile = (formData, history, edit = false) => async dispatch
 
 // adds experience
 export const addExperience = (formData, history) => async dispatch => {
+    
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
 
-        const res = await axios.put('/api/profile/experience', formData, config)
+        const res = await axios.put('/api/profile/experience', formData)
 
-        dispatch({
+        await dispatch({
             type: UPDATE_PROFILE,
             payload: res.data
         })
 
         dispatch(setAlert('Experiência Adicionada', 'success'))
-
-        history.push('/dashboard')
     } catch(err) {
         const errors = err.response.data.errors
         
@@ -144,23 +130,17 @@ export const addExperience = (formData, history) => async dispatch => {
 
 // adds education
 export const addEducation = (formData, history) => async dispatch => {
+    
     try {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
 
-        const res = await axios.put('/api/profile/education', formData, config)
+        const res = await axios.put('/api/profile/education', formData)
 
-        dispatch({
+        await dispatch({
             type: UPDATE_PROFILE,
             payload: res.data
         })
 
         dispatch(setAlert('Formação Acadêmica Adicionada', 'success'))
-
-        history.push('/dashboard')
     } catch(err) {
         const errors = err.response.data.errors
         

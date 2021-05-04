@@ -56,7 +56,8 @@ const AddEducation = ({ addEducation, history }) => {
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            addEducation(values, history)
+            addEducation(values)
+            history.push('/dashboard')
         }
     })
 
