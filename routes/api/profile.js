@@ -278,10 +278,8 @@
  *            type: string
  *            description: Site pessoal ou da empresa
  *          skills:
- *            type: array
+ *            type: string
  *            description: Conhecimentos/Habilidades, separados por vírgula
- *            items:
- *              type: string
  *          bio:
  *            type: string
  *            description: Resumo do perfil do usuário
